@@ -5,12 +5,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Method and Design 窶｢ uccdf</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
-<link rel="icon" type="窶拱mage/svg+xml窶・ href="../favicon.svg">
-<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="icon" sizes="any" href="../favicon.ico">
-<link rel="manifest" href="../site.webmanifest">
+<title>Method and Design 遯ｶ・｢ uccdf</title>
+<!-- favicons --><link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -135,7 +131,7 @@ stages.</p>
 <h2 id="mathematical-sketch">Mathematical sketch<a class="anchor" aria-label="anchor" href="#mathematical-sketch"></a>
 </h2>
 <p>Let the input table be</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>=</mo><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mn>1</mn><mo>竕､</mo><mi>i</mi><mo>竕､</mo><mi>n</mi><mo>,</mo><mspace width="0.222em"></mspace><mn>1</mn><mo>竕､</mo><mi>j</mi><mo>竕､</mo><mi>p</mi></mrow></msub></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>=</mo><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mn>1</mn><mo>遶包ｽ､</mo><mi>i</mi><mo>遶包ｽ､</mo><mi>n</mi><mo>,</mo><mspace width="0.222em"></mspace><mn>1</mn><mo>遶包ｽ､</mo><mi>j</mi><mo>遶包ｽ､</mo><mi>p</mi></mrow></msub></mrow><annotation encoding="application/x-tex">
 X = (x_{ij})_{1 \le i \le n,\ 1 \le j \le p}
 </annotation></semantics></math></p>
 <p>with row index
@@ -143,7 +139,7 @@ X = (x_{ij})_{1 \le i \le n,\ 1 \le j \le p}
 and column index
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>.
 Each active column has a coarse type</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ﾏ・/mi><mi>j</mi></msub><mo>竏・/mo><mo stretchy="false" form="prefix">{</mo><mtext mathvariant="normal">continuous</mtext><mo>,</mo><mtext mathvariant="normal">binary</mtext><mo>,</mo><mtext mathvariant="normal">nominal</mtext><mo>,</mo><mtext mathvariant="normal">ordinal</mtext><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>・上・/mi><mi>j</mi></msub><mo>遶上・/mo><mo stretchy="false" form="prefix">{</mo><mtext mathvariant="normal">continuous</mtext><mo>,</mo><mtext mathvariant="normal">binary</mtext><mo>,</mo><mtext mathvariant="normal">nominal</mtext><mo>,</mo><mtext mathvariant="normal">ordinal</mtext><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
 \tau_j \in \{\text{continuous}, \text{binary}, \text{nominal}, \text{ordinal}\}.
 </annotation></semantics></math></p>
 <div class="section level3">
@@ -152,13 +148,13 @@ Each active column has a coarse type</p>
 <p>The inferred schema stores:</p>
 <ul>
 <li>column type
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ﾏ・/mi><mi>j</mi></msub><annotation encoding="application/x-tex">\tau_j</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>・上・/mi><mi>j</mi></msub><annotation encoding="application/x-tex">\tau_j</annotation></semantics></math>
 </li>
 <li>role
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>j</mi></msub><mo>竏・/mo><mo stretchy="false" form="prefix">{</mo><mtext mathvariant="normal">id</mtext><mo>,</mo><mtext mathvariant="normal">active</mtext><mo>,</mo><mtext mathvariant="normal">exclude</mtext><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">q_j \in \{\text{id}, \text{active}, \text{exclude}\}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>j</mi></msub><mo>遶上・/mo><mo stretchy="false" form="prefix">{</mo><mtext mathvariant="normal">id</mtext><mo>,</mo><mtext mathvariant="normal">active</mtext><mo>,</mo><mtext mathvariant="normal">exclude</mtext><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">q_j \in \{\text{id}, \text{active}, \text{exclude}\}</annotation></semantics></math>
 </li>
 <li>initial weight
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ﾎｱ</mi><mi>j</mi></msub><annotation encoding="application/x-tex">\alpha_j</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>・趣ｽｱ</mi><mi>j</mi></msub><annotation encoding="application/x-tex">\alpha_j</annotation></semantics></math>
 </li>
 <li>missingness and uniqueness summaries</li>
 </ul>
@@ -175,16 +171,16 @@ clustering.</p>
 <p>For each active column we define a local distance
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>j</mi></msub><annotation encoding="application/x-tex">d_j</annotation></semantics></math>.
 For example:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>j</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>x</mi><mi>窶ｲ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mrow><mo stretchy="true" form="prefix">|</mo><mi>x</mi><mo>竏・/mo><mi>x</mi><mi>窶ｲ</mi><mo stretchy="true" form="postfix">|</mo></mrow><mrow><msub><mi>s</mi><mi>j</mi></msub><mo>+</mo><mi>ﾎｵ</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>j</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>x</mi><mi>遯ｶ・ｲ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mrow><mo stretchy="true" form="prefix">|</mo><mi>x</mi><mo>遶上・/mo><mi>x</mi><mi>遯ｶ・ｲ</mi><mo stretchy="true" form="postfix">|</mo></mrow><mrow><msub><mi>s</mi><mi>j</mi></msub><mo>+</mo><mi>・趣ｽｵ</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">
 d_j(x, x') = \frac{|x - x'|}{s_j + \varepsilon}
 </annotation></semantics></math></p>
 <p>for continuous columns, and</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>j</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>x</mi><mi>窶ｲ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>沛</mn><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>竕</mo><mi>x</mi><mi>窶ｲ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>j</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>x</mi><mi>遯ｶ・ｲ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>﨟懈ｲ・/mn><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>遶包｣ｰ</mo><mi>x</mi><mi>遯ｶ・ｲ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
 d_j(x, x') = \mathbf 1(x \ne x')
 </annotation></semantics></math></p>
 <p>for nominal or binary columns.</p>
 <p>These are aggregated into a Gower-like distance:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>i</mi><mi>i</mi><mi>窶ｲ</mi></mrow></msub><mo>=</mo><mfrac><mrow><munder><mo>竏・/mo><mi>j</mi></munder><msub><mi>ﾎｱ</mi><mi>j</mi></msub><msub><mi>ﾎｴ</mi><mrow><mi>i</mi><mi>i</mi><mi>窶ｲ</mi><mi>j</mi></mrow></msub><msub><mi>d</mi><mi>j</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>,</mo><msub><mi>x</mi><mrow><mi>i</mi><mi>窶ｲ</mi><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><munder><mo>竏・/mo><mi>j</mi></munder><msub><mi>ﾎｱ</mi><mi>j</mi></msub><msub><mi>ﾎｴ</mi><mrow><mi>i</mi><mi>i</mi><mi>窶ｲ</mi><mi>j</mi></mrow></msub><mo>+</mo><mi>ﾎｵ</mi></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>i</mi><mi>i</mi><mi>遯ｶ・ｲ</mi></mrow></msub><mo>=</mo><mfrac><mrow><munder><mo>遶上・/mo><mi>j</mi></munder><msub><mi>・趣ｽｱ</mi><mi>j</mi></msub><msub><mi>・趣ｽｴ</mi><mrow><mi>i</mi><mi>i</mi><mi>遯ｶ・ｲ</mi><mi>j</mi></mrow></msub><msub><mi>d</mi><mi>j</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>,</mo><msub><mi>x</mi><mrow><mi>i</mi><mi>遯ｶ・ｲ</mi><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><munder><mo>遶上・/mo><mi>j</mi></munder><msub><mi>・趣ｽｱ</mi><mi>j</mi></msub><msub><mi>・趣ｽｴ</mi><mrow><mi>i</mi><mi>i</mi><mi>遯ｶ・ｲ</mi><mi>j</mi></mrow></msub><mo>+</mo><mi>・趣ｽｵ</mi></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
 D_{ii'} =
 \frac{
 \sum_j \alpha_j \delta_{ii'j} d_j(x_{ij}, x_{i'j})
@@ -200,7 +196,7 @@ D_{ii'} =
 ordinal columns are rank-coded, and the resulting matrix is projected
 into a low-dimensional embedding with PCA-like machinery.</p>
 <p>This gives a second representation:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo>竏・/mo><msup><mi>邃・/mi><mrow><mi>n</mi><mo>ﾃ・/mo><mi>r</mi></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo>遶上・/mo><msup><mi>驍・・/mi><mrow><mi>n</mi><mo>・・・/mo><mi>r</mi></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">
 Z \in \mathbb{R}^{n \times r}.
 </annotation></semantics></math></p>
 </div>
@@ -217,7 +213,7 @@ learner
 and candidate cluster count
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>,
 the package computes a partition</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ﾏ</mi><mrow><mi>b</mi><mi>v</mi><mi>a</mi><mi>K</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>・渉</mi><mrow><mi>b</mi><mi>v</mi><mi>a</mi><mi>K</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">
 \pi_{bvaK}.
 </annotation></semantics></math></p>
 <p>The current default learners are:</p>
@@ -227,7 +223,7 @@ the package computes a partition</p>
 <li>k-means on the latent view</li>
 </ul>
 <p>Each run contributes a co-membership matrix</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mrow><mi>b</mi><mi>v</mi><mi>a</mi><mi>K</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>沛</mn><mo stretchy="false" form="prefix">{</mo><msub><mi>ﾏ</mi><mrow><mi>b</mi><mi>v</mi><mi>a</mi><mi>K</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>ﾏ</mi><mrow><mi>b</mi><mi>v</mi><mi>a</mi><mi>K</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mrow><mi>b</mi><mi>v</mi><mi>a</mi><mi>K</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>﨟懈ｲ・/mn><mo stretchy="false" form="prefix">{</mo><msub><mi>・渉</mi><mrow><mi>b</mi><mi>v</mi><mi>a</mi><mi>K</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>・渉</mi><mrow><mi>b</mi><mi>v</mi><mi>a</mi><mi>K</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
 M_{bvaK}(i, j) = \mathbf 1\{\pi_{bvaK}(i) = \pi_{bvaK}(j)\}.
 </annotation></semantics></math></p>
 <p>These are averaged into a consensus matrix
@@ -237,11 +233,11 @@ M_{bvaK}(i, j) = \mathbf 1\{\pi_{bvaK}(i) = \pi_{bvaK}(j)\}.
 <h3 id="stability-score">Stability score<a class="anchor" aria-label="anchor" href="#stability-score"></a>
 </h3>
 <p>Pairwise consensus uncertainty is summarized with binary entropy:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>p</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>竏・/mi><mi>p</mi><mo>log</mo><mi>p</mi><mo>竏・/mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>竏・/mo><mi>p</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>竏・/mo><mi>p</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>p</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>遶上・/mi><mi>p</mi><mo>log</mo><mi>p</mi><mo>遶上・/mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>遶上・/mo><mi>p</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>遶上・/mo><mi>p</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">
 h(p) = -p\log p - (1-p)\log(1-p).
 </annotation></semantics></math></p>
 <p>The package reports</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>K</mi></msub><mo>=</mo><mn>1</mn><mo>竏・/mo><mfrac><mn>1</mn><mrow><mo>log</mo><mn>2</mn></mrow></mfrac><msub><mtext mathvariant="normal">mean</mtext><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow></msub><mspace width="0.167em"></mspace><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>C</mi><mi>K</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>K</mi></msub><mo>=</mo><mn>1</mn><mo>遶上・/mo><mfrac><mn>1</mn><mrow><mo>log</mo><mn>2</mn></mrow></mfrac><msub><mtext mathvariant="normal">mean</mtext><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow></msub><mspace width="0.167em"></mspace><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>C</mi><mi>K</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">
 S_K = 1 - \frac{1}{\log 2}\text{mean}_{i&lt;j}\, h(C_K(i,j)).
 </annotation></semantics></math></p>
 <p>High
@@ -260,18 +256,18 @@ while breaking cross-column structure.</p>
 the same pipeline produces
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>S</mi><mi>K</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>r</mi><mo stretchy="true" form="postfix">)</mo></mrow></msubsup><annotation encoding="application/x-tex">S_K^{(0,r)}</annotation></semantics></math>.
 From those replicates we compute:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ﾎｼ</mi><mrow><mn>0</mn><mo>,</mo><mi>K</mi></mrow></msub><mo>=</mo><msub><mtext mathvariant="normal">mean</mtext><mi>r</mi></msub><mspace width="0.167em"></mspace><msubsup><mi>S</mi><mi>K</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>r</mi><mo stretchy="true" form="postfix">)</mo></mrow></msubsup><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>ﾏ・/mi><mrow><mn>0</mn><mo>,</mo><mi>K</mi></mrow></msub><mo>=</mo><msub><mtext mathvariant="normal">sd</mtext><mi>r</mi></msub><mspace width="0.167em"></mspace><msubsup><mi>S</mi><mi>K</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>r</mi><mo stretchy="true" form="postfix">)</mo></mrow></msubsup><mi>.</mi></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>・趣ｽｼ</mi><mrow><mn>0</mn><mo>,</mo><mi>K</mi></mrow></msub><mo>=</mo><msub><mtext mathvariant="normal">mean</mtext><mi>r</mi></msub><mspace width="0.167em"></mspace><msubsup><mi>S</mi><mi>K</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>r</mi><mo stretchy="true" form="postfix">)</mo></mrow></msubsup><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>・上・/mi><mrow><mn>0</mn><mo>,</mo><mi>K</mi></mrow></msub><mo>=</mo><msub><mtext mathvariant="normal">sd</mtext><mi>r</mi></msub><mspace width="0.167em"></mspace><msubsup><mi>S</mi><mi>K</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>r</mi><mo stretchy="true" form="postfix">)</mo></mrow></msubsup><mi>.</mi></mrow><annotation encoding="application/x-tex">
 \mu_{0,K} = \text{mean}_r\, S_K^{(0,r)}, \qquad
 \sigma_{0,K} = \text{sd}_r\, S_K^{(0,r)}.
 </annotation></semantics></math></p>
 <p>We then define:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ﾎ・/mi><mi>K</mi></msub><mo>=</mo><msub><mi>S</mi><mi>K</mi></msub><mo>竏・/mo><msub><mi>ﾎｼ</mi><mrow><mn>0</mn><mo>,</mo><mi>K</mi></mrow></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>Z</mi><mi>K</mi></msub><mo>=</mo><mfrac><msub><mi>ﾎ・/mi><mi>K</mi></msub><mrow><msub><mi>ﾏ・/mi><mrow><mn>0</mn><mo>,</mo><mi>K</mi></mrow></msub><mo>+</mo><mi>ﾎｵ</mi></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>・弱・/mi><mi>K</mi></msub><mo>=</mo><msub><mi>S</mi><mi>K</mi></msub><mo>遶上・/mo><msub><mi>・趣ｽｼ</mi><mrow><mn>0</mn><mo>,</mo><mi>K</mi></mrow></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>Z</mi><mi>K</mi></msub><mo>=</mo><mfrac><msub><mi>・弱・/mi><mi>K</mi></msub><mrow><msub><mi>・上・/mi><mrow><mn>0</mn><mo>,</mo><mi>K</mi></mrow></msub><mo>+</mo><mi>・趣ｽｵ</mi></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
 \Delta_K = S_K - \mu_{0,K},
 \qquad
 Z_K = \frac{\Delta_K}{\sigma_{0,K} + \varepsilon}.
 </annotation></semantics></math></p>
 <p>The Monte Carlo p-value is</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>K</mi></msub><mo>=</mo><mfrac><mrow><mn>1</mn><mo>+</mo><munder><mo>竏・/mo><mi>r</mi></munder><mn>沛</mn><mo stretchy="false" form="prefix">{</mo><msubsup><mi>S</mi><mi>K</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>r</mi><mo stretchy="true" form="postfix">)</mo></mrow></msubsup><mo>竕･</mo><msub><mi>S</mi><mi>K</mi></msub><mo stretchy="false" form="postfix">}</mo></mrow><mrow><msub><mi>R</mi><mn>0</mn></msub><mo>+</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>K</mi></msub><mo>=</mo><mfrac><mrow><mn>1</mn><mo>+</mo><munder><mo>遶上・/mo><mi>r</mi></munder><mn>﨟懈ｲ・/mn><mo stretchy="false" form="prefix">{</mo><msubsup><mi>S</mi><mi>K</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>r</mi><mo stretchy="true" form="postfix">)</mo></mrow></msubsup><mo>遶包ｽ･</mo><msub><mi>S</mi><mi>K</mi></msub><mo stretchy="false" form="postfix">}</mo></mrow><mrow><msub><mi>R</mi><mn>0</mn></msub><mo>+</mo><mn>1</mn></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
 p_K =
 \frac{
 1 + \sum_r \mathbf 1\{S_K^{(0,r)} \ge S_K\}
@@ -289,13 +285,13 @@ R_0 + 1
 <h3 id="stage-1-global-detection">Stage 1: global detection<a class="anchor" aria-label="anchor" href="#stage-1-global-detection"></a>
 </h3>
 <p>Let</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mtext mathvariant="normal">obs</mtext></msub><mo>=</mo><munder><mo>max</mo><mi>K</mi></munder><msub><mi>ﾎ・/mi><mi>K</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mtext mathvariant="normal">obs</mtext></msub><mo>=</mo><munder><mo>max</mo><mi>K</mi></munder><msub><mi>・弱・/mi><mi>K</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">
 T_{\text{obs}} = \max_K \Delta_K.
 </annotation></semantics></math></p>
 <p>For each null replicate we compute the analogous maximum over
 candidate <code>K</code>, which yields a global null distribution. This
-gives a global p-value for the statement 窶徼he table has no stronger
-clustering signal than the null baseline窶・</p>
+gives a global p-value for the statement 遯ｶ蠕ｼhe table has no stronger
+clustering signal than the null baseline遯ｶ繝ｻ</p>
 <p>If that null is not rejected, the package reports:</p>
 <ul>
 <li><code>selected_k = 1</code></li>
@@ -311,7 +307,7 @@ split</li>
 </h3>
 <p>If the global null is rejected, the package selects among supported
 <code>K</code> using</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>J</mi><mi>K</mi></msub><mo>=</mo><msub><mi>Z</mi><mi>K</mi></msub><mo>竏・/mo><mi>ﾎｻ</mi><mo>log</mo><mi>K</mi><mo>竏・/mo><mi>ﾎｳ</mi><munderover><mo>竏・/mo><mrow><mi>g</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></munderover><mn>沛</mn><mo stretchy="false" form="prefix">{</mo><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi>G</mi><mi>g</mi></msub><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><msub><mi>n</mi><mo>min</mo></msub><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>J</mi><mi>K</mi></msub><mo>=</mo><msub><mi>Z</mi><mi>K</mi></msub><mo>遶上・/mo><mi>・趣ｽｻ</mi><mo>log</mo><mi>K</mi><mo>遶上・/mo><mi>・趣ｽｳ</mi><munderover><mo>遶上・/mo><mrow><mi>g</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></munderover><mn>﨟懈ｲ・/mn><mo stretchy="false" form="prefix">{</mo><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi>G</mi><mi>g</mi></msub><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><msub><mi>n</mi><mo>min</mo></msub><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
 J_K = Z_K - \lambda \log K - \gamma \sum_{g=1}^{K} \mathbf 1\{|G_g| &lt; n_{\min}\}.
 </annotation></semantics></math></p>
 <p>This keeps the chosen solution stable, null-improving, and resistant
@@ -371,4 +367,8 @@ signal, boundary uncertainty, or an overly large candidate
 
   </body>
 </html>
+
+
+
+
 
