@@ -26,6 +26,7 @@ The quickest way to understand a fit is to inspect these three views together:
 The pkgdown site includes:
 
 - a method-and-design article placed first in the tutorial flow
+- a method comparison article positioning `uccdf` against existing consensus clustering toolkits
 - a multi-dataset article collection built on real data
 - dataset analyses for `airquality`, `CO2`, `Indometh`, `InsectSprays`, `survey`, `Cars93`, `iris`, `mtcars`, `ChickWeight`, `attitude`, `USJudgeRatings`, `golub`, and `PimaIndiansDiabetes2`
 
