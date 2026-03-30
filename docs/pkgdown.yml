@@ -1,0 +1,22 @@
+pandoc: 3.6.3
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  case-study-attitude: case-study-attitude.html
+  case-study-cars93: case-study-cars93.html
+  case-study-chickweight: case-study-chickweight.html
+  case-study-golub: case-study-golub.html
+  case-study-iris: case-study-iris.html
+  case-study-mtcars: case-study-mtcars.html
+  case-study-pima: case-study-pima.html
+  case-study-survey: case-study-survey.html
+  case-study-usjudgeratings: case-study-usjudgeratings.html
+  demo-bio: demo-bio.html
+  demo-medical: demo-medical.html
+  demo-other: demo-other.html
+  getting-started: getting-started.html
+  method-and-design: method-and-design.html
+last_built: 2026-03-30T10:02Z
+urls:
+  reference: https://dai540.github.io/uccdf/reference
+  article: https://dai540.github.io/uccdf/articles

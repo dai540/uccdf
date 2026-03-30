@@ -1,0 +1,113 @@
+---
+title: "Indometh"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Indometh}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 8.5, fig.height = 6.2, out.width = "100%")
+library(uccdf)
+```
+
+# Background
+
+`Indometh` is a pharmacokinetic dataset tracking indomethacin concentration over
+time in several subjects. It is a compact medical-style table where assay values
+and subject metadata naturally mix. The repeated-measures structure makes it a
+useful stress test because concentration is expected to change over time, but
+subject-to-subject variation still matters.
+
+# Objective
+
+The aim is to see whether `uccdf` can recover stable concentration-profile
+regimes using concentration, subject identity, and a coarse time band. The real
+question is whether the output looks like a meaningful stratification of the
+concentration curve, instead of collapsing to subject labels or to a trivial
+early-versus-late split.
+
+# Data preparation
+
+```{r}
+ind_df <- Indometh
+ind_df$sample_id <- sprintf("IN%03d", seq_len(nrow(ind_df)))
+ind_df$Subject <- factor(ind_df$Subject)
+ind_df$time_band <- ordered(
+  cut(ind_df$time, breaks = c(-Inf, 2, 4, Inf), labels = c("early", "mid", "late")),
+  levels = c("early", "mid", "late")
+)
+
+analysis_ind <- ind_df[, c("sample_id", "conc", "Subject", "time_band")]
+head(analysis_ind)
+```
+
+# Analysis
+
+```{r}
+fit_ind <- fit_uccdf(
+  analysis_ind,
+  id_column = "sample_id",
+  candidate_k = 1:5,
+  n_resamples = 20,
+  n_null = 39,
+  row_fraction = 0.85,
+  col_fraction = 0.85,
+  seed = 999
+)
+
+fit_ind$selection
+select_k(fit_ind)
+```
+
+# Results
+
+```{r}
+ind_assign <- merge(augment(fit_ind), ind_df, by.x = "row_id", by.y = "sample_id", all.x = TRUE)
+head(ind_assign)
+```
+
+```{r}
+aggregate(
+  cbind(conc, time, confidence) ~ cluster,
+  ind_assign,
+  function(x) round(mean(x, na.rm = TRUE), 3)
+)
+```
+
+```{r}
+table(ind_assign$cluster, ind_assign$Subject)
+table(ind_assign$cluster, ind_assign$time_band)
+round(prop.table(table(ind_assign$cluster, ind_assign$time_band), margin = 1), 3)
+```
+
+```{r}
+plot_embedding(fit_ind, color_by = "selected", main = "Indometh latent embedding")
+plot_consensus_heatmap(fit_ind, main = "Indometh consensus heatmap")
+```
+
+# Discussion
+
+The selected three-cluster solution is informative because the groups usually
+map onto different portions of the concentration trajectory. One cluster is
+typically enriched for early high-concentration points, one captures mid-curve
+measurements, and one collects lower concentrations later in the record. The
+time-band table makes that progression visible, but the subject table shows that
+no single subject owns a cluster outright. In other words, the partition is
+about recurring pharmacokinetic regimes rather than patient identity alone.
+
+That matters in practice. A subject-only clustering would mostly summarize who
+was measured, while a pure time split would add little beyond the original
+study design. The consensus result is more useful because it compresses the
+table into interpretable concentration states that remain stable across
+resamples.
+
+# Interpretation
+
+For `Indometh`, the clusters should be interpreted as descriptive concentration
+regimes spanning early absorption, transition, and later elimination-like
+behavior. The package is not fitting a compartment model, so the output should
+not be over-read as mechanistic PK inference. Its value is that it produces a
+stable exploratory stratification of the repeated-measures table that can be
+used for review, faceting, or downstream diagnostics.

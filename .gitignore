@@ -1,0 +1,6 @@
+.Rhistory
+.RData
+.Ruserdata
+pkgdown/
+*.tar.gz
+*.Rcheck/

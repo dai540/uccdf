@@ -1,0 +1,118 @@
+---
+title: "airquality"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{airquality}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 8.5, fig.height = 6.2, out.width = "100%")
+library(uccdf)
+```
+
+# Background
+
+`airquality` is a classic environmental dataset containing ozone, solar
+radiation, wind, temperature, and calendar information measured in New York.
+It is a good first real-data analysis for `uccdf` because the variables are
+easy to name but not redundant: ozone and solar radiation reflect atmospheric
+conditions, wind changes pollutant dispersion, temperature tracks seasonal
+warming, and month encodes broad calendar position without being a full numeric
+surrogate for the weather itself.
+
+# Objective
+
+The analytical question is not simply whether hot days differ from cool days.
+Instead, the goal is to determine whether the cleaned table contains
+reproducible day-level weather regimes that jointly differ in ozone burden,
+radiation, wind, and seasonal timing, and to inspect whether the resulting
+clusters look like coherent environmental profiles rather than a trivial month
+ordering.
+
+# Data preparation
+
+```{r}
+aq <- na.omit(airquality)
+aq$sample_id <- sprintf("AQ%03d", seq_len(nrow(aq)))
+aq$Month <- ordered(month.abb[aq$Month], levels = month.abb[5:9])
+aq$temp_band <- ordered(
+  cut(aq$Temp, breaks = c(-Inf, 75, 85, Inf), labels = c("cool", "warm", "hot")),
+  levels = c("cool", "warm", "hot")
+)
+
+analysis_aq <- aq[, c("sample_id", "Ozone", "Solar.R", "Wind", "Temp", "Month", "temp_band")]
+head(analysis_aq)
+```
+
+# Analysis
+
+```{r}
+fit_aq <- fit_uccdf(
+  analysis_aq,
+  id_column = "sample_id",
+  candidate_k = 1:5,
+  n_resamples = 20,
+  n_null = 39,
+  row_fraction = 0.85,
+  col_fraction = 0.85,
+  seed = 222
+)
+
+fit_aq$selection
+select_k(fit_aq)
+```
+
+# Results
+
+```{r}
+aq_assign <- merge(augment(fit_aq), aq, by.x = "row_id", by.y = "sample_id", all.x = TRUE)
+head(aq_assign)
+```
+
+```{r}
+aggregate(
+  cbind(Ozone, Solar.R, Wind, Temp, confidence) ~ cluster,
+  aq_assign,
+  function(x) round(mean(x, na.rm = TRUE), 2)
+)
+```
+
+```{r}
+table(aq_assign$cluster, aq_assign$Month)
+table(aq_assign$cluster, aq_assign$temp_band)
+round(prop.table(table(aq_assign$cluster, aq_assign$Month), margin = 1), 3)
+```
+
+```{r}
+plot_embedding(fit_aq, color_by = "selected", main = "airquality latent embedding")
+plot_consensus_heatmap(fit_aq, main = "airquality consensus heatmap")
+```
+
+# Discussion
+
+The three-cluster solution is useful because each group has a different
+environmental signature. In a typical fit, one cluster concentrates hotter days
+with elevated ozone and stronger solar radiation, another cluster is defined by
+higher wind and more moderate ozone despite comparable calendar timing, and the
+third cluster sits between those regimes. The month table helps show that the
+solution is not just "May versus August". July and August observations are
+redistributed across at least two consensus groups once wind and radiation are
+considered jointly.
+
+That detail matters for interpretation. If the method were only tracing a single
+temperature gradient, the latent scatter would look like one elongated cloud and
+the consensus heatmap would be close to a smooth diagonal fade. Instead the
+heatmap tends to show block structure with only a modest fringe of borderline
+days, which is exactly what we want from a stability-first exploratory summary.
+
+# Interpretation
+
+For `airquality`, the clusters should be read as reproducible daily weather
+profiles with different pollution-dispersion conditions. One group corresponds
+to hotter and more ozone-heavy days, one to windier and lower-burden days, and
+one to intermediate mixed conditions. That is a descriptive rather than causal
+statement, but it is still valuable: it turns a small mixed environmental table
+into a set of defensible regimes that can be reviewed, plotted, and compared
+without pretending that the data support a mechanistic latent-state model.

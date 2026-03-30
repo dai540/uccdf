@@ -1,0 +1,108 @@
+---
+title: "InsectSprays"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{InsectSprays}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 8.5, fig.height = 6.2, out.width = "100%")
+library(uccdf)
+```
+
+# Background
+
+`InsectSprays` records insect counts under different spray conditions. It is a
+small experimental dataset with a simple mixed structure: a count-like numeric
+response plus a treatment factor. Despite its size, it is a useful real-data
+example because the experimental factor is known and the numeric outcome has
+clear practical meaning.
+
+# Objective
+
+The objective is to determine whether `uccdf` recovers stable efficacy regimes
+from the observed insect counts and spray labels, and to check whether the
+result reflects a broad low-count versus high-count separation rather than an
+over-fragmented grouping of individual sprays.
+
+# Data preparation
+
+```{r}
+sprays_df <- InsectSprays
+sprays_df$sample_id <- sprintf("IS%03d", seq_len(nrow(sprays_df)))
+sprays_df$count_band <- ordered(
+  cut(sprays_df$count, breaks = c(-Inf, 6, 15, Inf), labels = c("low", "mid", "high")),
+  levels = c("low", "mid", "high")
+)
+
+analysis_sprays <- sprays_df[, c("sample_id", "count", "spray", "count_band")]
+head(analysis_sprays)
+```
+
+# Analysis
+
+```{r}
+fit_sprays <- fit_uccdf(
+  analysis_sprays,
+  id_column = "sample_id",
+  candidate_k = 1:5,
+  n_resamples = 20,
+  n_null = 39,
+  row_fraction = 0.85,
+  col_fraction = 0.85,
+  seed = 333
+)
+
+fit_sprays$selection
+select_k(fit_sprays)
+```
+
+# Results
+
+```{r}
+sprays_assign <- merge(augment(fit_sprays), sprays_df, by.x = "row_id", by.y = "sample_id", all.x = TRUE)
+head(sprays_assign)
+```
+
+```{r}
+aggregate(
+  cbind(count, confidence) ~ cluster,
+  sprays_assign,
+  function(x) round(mean(x, na.rm = TRUE), 2)
+)
+```
+
+```{r}
+table(sprays_assign$cluster, sprays_assign$spray)
+table(sprays_assign$cluster, sprays_assign$count_band)
+round(prop.table(table(sprays_assign$cluster, sprays_assign$spray), margin = 1), 3)
+```
+
+```{r}
+plot_embedding(fit_sprays, color_by = "selected", main = "InsectSprays latent embedding")
+plot_consensus_heatmap(fit_sprays, main = "InsectSprays consensus heatmap")
+```
+
+# Discussion
+
+The selected two-cluster solution is easy to read against the experimental
+context. One cluster is typically enriched for rows with lower counts and the
+better-performing sprays, while the other collects higher-count outcomes and the
+weaker treatment settings. The count-band table is useful here because it makes
+clear that the split is anchored in observed efficacy rather than in arbitrary
+factor coding.
+
+This dataset is also a good calibration check for the method. Because the table
+is small, a single clustering run can be unstable. The consensus workflow still
+finds a coherent low-count versus high-count separation, which is exactly the
+kind of conservative summary we want from a stability-oriented tool.
+
+# Interpretation
+
+For `InsectSprays`, the resulting partition is best interpreted as a stable
+contrast between more effective and less effective spray-response regimes. The
+result is simple, but it is not trivial: it demonstrates that `uccdf` can
+recover an interpretable consensus split even when the dataset is small and the
+signal is partly encoded by a treatment factor.

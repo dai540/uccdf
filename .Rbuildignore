@@ -1,0 +1,7 @@
+^docs$
+^pkgdown$
+^README\.Rmd$
+^\.github$
+^\.tmp_.*$
+^uccdf\.Rcheck$
+^.*\.Rproj$

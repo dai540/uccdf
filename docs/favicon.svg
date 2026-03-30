@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 140" role="img" aria-label="uccdf logo">
+  <rect width="360" height="140" fill="#ffffff"/>
+  <polygon points="84,12 136,42 136,98 84,128 32,98 32,42" fill="#0f3d4c"/>
+  <polygon points="84,24 125,48 125,92 84,116 43,92 43,48" fill="#dce8cf"/>
+  <circle cx="68" cy="70" r="10" fill="#0f3d4c"/>
+  <circle cx="100" cy="52" r="8" fill="#7eb8a1"/>
+  <circle cx="100" cy="88" r="8" fill="#7eb8a1"/>
+  <path d="M68 70 L100 52 M68 70 L100 88" stroke="#0f3d4c" stroke-width="4.5" stroke-linecap="round"/>
+  <text x="162" y="83" font-family="Verdana, Geneva, sans-serif" font-size="40" fill="#0f3d4c">uccdf</text>
+</svg>

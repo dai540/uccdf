@@ -1,0 +1,106 @@
+url: https://dai540.github.io/uccdf/
+
+template:
+  bootstrap: 5
+  bootswatch: flatly
+
+development:
+  mode: release
+
+home:
+  title: uccdf
+  description: Typed consensus clustering for structured mixed-type data frames.
+  sidebar:
+    structure: []
+
+navbar:
+  structure:
+    left: [intro, reference, articles]
+    right: [github, search]
+  components:
+    intro:
+      text: Get Started
+      href: index.html
+    reference:
+      text: Reference
+      href: reference/index.html
+    articles:
+      text: Articles
+      menu:
+        - text: Method and Design
+          href: articles/method-and-design.html
+        - text: Datasets
+        - text: airquality
+          href: articles/getting-started.html
+        - text: CO2
+          href: articles/demo-bio.html
+        - text: Indometh
+          href: articles/demo-medical.html
+        - text: InsectSprays
+          href: articles/demo-other.html
+        - text: survey
+          href: articles/case-study-survey.html
+        - text: Cars93
+          href: articles/case-study-cars93.html
+        - text: iris
+          href: articles/case-study-iris.html
+        - text: mtcars
+          href: articles/case-study-mtcars.html
+        - text: ChickWeight
+          href: articles/case-study-chickweight.html
+        - text: attitude
+          href: articles/case-study-attitude.html
+        - text: USJudgeRatings
+          href: articles/case-study-usjudgeratings.html
+        - text: golub
+          href: articles/case-study-golub.html
+        - text: PimaIndiansDiabetes2
+          href: articles/case-study-pima.html
+    github:
+      icon: fa-github
+      href: https://github.com/dai540/uccdf
+      aria-label: GitHub repository
+
+articles:
+  - title: Core
+    navbar: Core
+    contents:
+      - method-and-design
+  - title: Real dataset analyses
+    navbar: Datasets
+    contents:
+      - getting-started
+      - demo-bio
+      - demo-medical
+      - demo-other
+      - case-study-survey
+      - case-study-cars93
+      - case-study-iris
+      - case-study-mtcars
+      - case-study-chickweight
+      - case-study-attitude
+      - case-study-usjudgeratings
+      - case-study-golub
+      - case-study-pima
+
+reference:
+  - title: Core workflow
+    contents:
+      - validate_input
+      - infer_schema
+      - build_views
+      - fit_uccdf
+      - select_k
+      - augment
+      - report
+  - title: Visualization and examples
+    contents:
+      - plot.uccdf_fit
+      - plot_embedding
+      - plot_consensus_heatmap
+      - print.uccdf_fit
+      - simulate_mixed_data
+      - airway_gene_panel
+      - golub_gene_panel
+      - pima_biomarker_panel
+      - toy_mixed_data

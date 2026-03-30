@@ -1,0 +1,112 @@
+---
+title: "mtcars"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{mtcars}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 8.5, fig.height = 6.2, out.width = "100%")
+library(uccdf)
+```
+
+# Background
+
+`mtcars` is a classic vehicle dataset with mostly continuous specifications plus
+a few discrete engineering descriptors. It is a convenient real example for
+mixed-table clustering in a transport context. The table is also small enough
+that unstable high-`K` segmentations are easy to invent, which makes it a good
+test of whether `uccdf` stays conservative.
+
+# Objective
+
+The objective is to identify stable vehicle segments from performance and design
+features and to see whether the resulting clusters line up with transmission,
+cylinder structure, and broad efficiency-versus-power tradeoffs.
+
+# Data preparation
+
+```{r}
+cars_df <- mtcars
+cars_df$sample_id <- rownames(mtcars)
+cars_df$am <- factor(cars_df$am, labels = c("automatic", "manual"))
+cars_df$vs <- factor(cars_df$vs, labels = c("v-shaped", "straight"))
+cars_df$cyl <- ordered(cars_df$cyl, levels = c(4, 6, 8))
+cars_df$gear <- ordered(cars_df$gear, levels = c(3, 4, 5))
+
+analysis_cars <- cars_df[, c("sample_id", "mpg", "disp", "hp", "wt", "qsec", "am", "vs", "cyl", "gear")]
+head(analysis_cars)
+```
+
+# Analysis
+
+```{r}
+fit_cars <- fit_uccdf(
+  analysis_cars,
+  id_column = "sample_id",
+  candidate_k = 1:5,
+  n_resamples = 24,
+  n_null = 59,
+  seed = 505
+)
+
+fit_cars$selection
+select_k(fit_cars)
+```
+
+# Results
+
+```{r}
+cars_assign <- merge(
+  augment(fit_cars),
+  cars_df,
+  by.x = "row_id",
+  by.y = "sample_id",
+  all.x = TRUE
+)
+head(cars_assign)
+```
+
+```{r}
+aggregate(
+  cbind(mpg, disp, hp, wt, qsec, confidence) ~ cluster,
+  data = cars_assign,
+  FUN = function(x) round(mean(x, na.rm = TRUE), 2)
+)
+```
+
+```{r}
+table(cars_assign$cluster, cars_assign$am)
+table(cars_assign$cluster, cars_assign$cyl)
+round(prop.table(table(cars_assign$cluster, cars_assign$cyl), margin = 1), 3)
+```
+
+```{r}
+plot_embedding(fit_cars, color_by = "selected", main = "mtcars latent embedding")
+plot_consensus_heatmap(fit_cars, main = "mtcars consensus heatmap")
+```
+
+# Discussion
+
+The selected two-cluster solution captures a broad division in vehicle design
+and performance. One cluster typically contains lighter cars with better fuel
+economy, smaller displacement, and lower horsepower, while the other contains
+heavier and more powerful vehicles. The `am` and `cyl` tables help confirm that
+this is a mechanically meaningful split rather than a numerical artifact:
+automatic transmissions and larger cylinder counts often enrich the heavier
+cluster, but they do not define it perfectly on their own.
+
+This is exactly the kind of table where a simpler stable partition is more
+useful than a larger but less robust segmentation. The heatmap usually shows two
+clear blocks with only a small number of boundary cars, which supports the idea
+that the dominant structure is a two-segment market split.
+
+# Interpretation
+
+For `mtcars`, the clusters are best read as stable vehicle segments such as
+lighter efficiency-oriented cars versus heavier performance-oriented cars. The
+article shows that even a mostly numeric engineering table benefits from the
+typed consensus workflow once a few discrete descriptors are included, because
+those descriptors help anchor the interpretation of the numeric split.
