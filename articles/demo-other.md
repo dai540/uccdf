@@ -69,16 +69,16 @@ fit_sprays$selection
 #> $best_supported_k
 #> [1] 2
 select_k(fit_sprays)
-#>   k stability null_mean    null_sd stability_excess   z_score p_value supported
-#> 1 2 0.9482595 0.3794889 0.05330266        0.5687707 10.670586   0.025      TRUE
-#> 2 3 0.6940628 0.3165129 0.05329006        0.3775500  7.084809   0.025      TRUE
-#> 3 4 0.6466631 0.4073242 0.05027403        0.2393389  4.760686   0.025      TRUE
-#> 4 5 0.6959770 0.5446996 0.04357399        0.1512774  3.471735   0.025      TRUE
+#>   k stability null_mean    null_sd stability_excess  z_score p_value supported
+#> 1 2 0.9499258 0.3861876 0.06245955        0.5637381 9.025651   0.025      TRUE
+#> 2 3 0.6751667 0.3059309 0.07799298        0.3692358 4.734218   0.025      TRUE
+#> 3 4 0.6607274 0.3969920 0.07093267        0.2637354 3.718109   0.025      TRUE
+#> 4 5 0.7117390 0.5400487 0.05331053        0.1716903 3.220570   0.025      TRUE
 #>   objective
-#> 1 10.531956
-#> 2  6.865087
-#> 3  4.483427
-#> 4  3.149848
+#> 1  8.887021
+#> 2  4.514495
+#> 3  3.440850
+#> 4  2.898682
 ```
 
 ## Results
@@ -87,19 +87,19 @@ select_k(fit_sprays)
 sprays_assign <- merge(augment(fit_sprays), sprays_df, by.x = "row_id", by.y = "sample_id", all.x = TRUE)
 head(sprays_assign)
 #>   row_id cluster confidence   ambiguity exploratory_cluster
-#> 1  IS001       1  0.9790482 0.020951786                   1
-#> 2  IS002       1  0.9598161 0.040183870                   1
-#> 3  IS003       1  0.9936606 0.006339424                   1
-#> 4  IS004       1  0.9915717 0.008428300                   1
-#> 5  IS005       1  0.9931632 0.006836759                   1
-#> 6  IS006       1  0.9934966 0.006503419                   1
+#> 1  IS001       1  0.9781701 0.021829861                   1
+#> 2  IS002       1  0.9652655 0.034734506                   1
+#> 3  IS003       1  0.9928565 0.007143456                   1
+#> 4  IS004       1  0.9927567 0.007243336                   1
+#> 5  IS005       1  0.9925926 0.007407408                   1
+#> 6  IS006       1  0.9955785 0.004421466                   1
 #>   exploratory_confidence exploratory_ambiguity assignment_mode selected_k
-#> 1              0.9790482           0.020951786        selected          2
-#> 2              0.9598161           0.040183870        selected          2
-#> 3              0.9936606           0.006339424        selected          2
-#> 4              0.9915717           0.008428300        selected          2
-#> 5              0.9931632           0.006836759        selected          2
-#> 6              0.9934966           0.006503419        selected          2
+#> 1              0.9781701           0.021829861        selected          2
+#> 2              0.9652655           0.034734506        selected          2
+#> 3              0.9928565           0.007143456        selected          2
+#> 4              0.9927567           0.007243336        selected          2
+#> 5              0.9925926           0.007407408        selected          2
+#> 6              0.9955785           0.004421466        selected          2
 #>   exploratory_k count spray count_band
 #> 1             2    10     A        mid
 #> 2             2     7     A        mid
