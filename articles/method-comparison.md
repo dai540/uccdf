@@ -44,13 +44,13 @@ The most important distinction is the unit of design.
 
 ## Comparison table
 
-| Package | Main design target                                          | Input style                                     | Mixed-type dataframe awareness          | Null calibration                             | Typical strength                                |
-|:--------|:------------------------------------------------------------|:------------------------------------------------|:----------------------------------------|:---------------------------------------------|:------------------------------------------------|
-| `clue`  | Cluster ensemble data structures and consensus operations   | Partitions, hierarchies, ensemble objects       | No built-in typed schema layer          | No built-in global null test                 | Extremely flexible ensemble tooling             |
-| `diceR` | Diverse ensemble generation across algorithms and resamples | Mostly matrix-like tabular input                | Limited, depends on user preprocessing  | Not the main focus                           | Strong multi-algorithm consensus workflow       |
-| `M3C`   | Monte Carlo reference-based consensus clustering            | Continuous expression-like matrices             | Not built for general mixed-type tables | Yes, central feature                         | Guards against false positive cluster discovery |
-| `sharp` | Stability and calibration of weighted consensus clustering  | Distance-based or weighted clustering workflows | Not a general dataframe typing system   | Yes, through calibrated stability procedures | Hyper-parameter and weighting calibration       |
-| `uccdf` | Typed consensus clustering for structured dataframes        | `data.frame` with mixed columns                 | Yes, explicit schema and role inference | Yes, two-stage detection and `K` selection   | Unified workflow for mixed-type tables          |
+| Package | Main design target | Input style | Mixed-type dataframe awareness | Null calibration | Typical strength |
+|:---|:---|:---|:---|:---|:---|
+| `clue` | Cluster ensemble data structures and consensus operations | Partitions, hierarchies, ensemble objects | No built-in typed schema layer | No built-in global null test | Extremely flexible ensemble tooling |
+| `diceR` | Diverse ensemble generation across algorithms and resamples | Mostly matrix-like tabular input | Limited, depends on user preprocessing | Not the main focus | Strong multi-algorithm consensus workflow |
+| `M3C` | Monte Carlo reference-based consensus clustering | Continuous expression-like matrices | Not built for general mixed-type tables | Yes, central feature | Guards against false positive cluster discovery |
+| `sharp` | Stability and calibration of weighted consensus clustering | Distance-based or weighted clustering workflows | Not a general dataframe typing system | Yes, through calibrated stability procedures | Hyper-parameter and weighting calibration |
+| `uccdf` | Typed consensus clustering for structured dataframes | `data.frame` with mixed columns | Yes, explicit schema and role inference | Yes, two-stage detection and `K` selection | Unified workflow for mixed-type tables |
 
 ## Where the methods overlap
 

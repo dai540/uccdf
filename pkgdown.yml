@@ -2,7 +2,9 @@ pandoc: 3.1.11
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
+  case-study-all: case-study-all.html
   case-study-attitude: case-study-attitude.html
+  case-study-bladder: case-study-bladder.html
   case-study-cars93: case-study-cars93.html
   case-study-chickweight: case-study-chickweight.html
   case-study-golub: case-study-golub.html
@@ -17,7 +19,7 @@ articles:
   getting-started: getting-started.html
   method-and-design: method-and-design.html
   method-comparison: method-comparison.html
-last_built: 2026-03-30T11:16Z
+last_built: 2026-03-30T14:22Z
 urls:
   reference: https://dai540.github.io/uccdf/reference
   article: https://dai540.github.io/uccdf/articles

@@ -4,6 +4,8 @@
 
 - [Method and
   Design](https://dai540.github.io/uccdf/articles/method-and-design.md):
+- [Comparison with Existing Consensus Clustering
+  Methods](https://dai540.github.io/uccdf/articles/method-comparison.md):
 
 ### Real dataset analyses
 
@@ -19,4 +21,6 @@
 - [attitude](https://dai540.github.io/uccdf/articles/case-study-attitude.md):
 - [USJudgeRatings](https://dai540.github.io/uccdf/articles/case-study-usjudgeratings.md):
 - [golub](https://dai540.github.io/uccdf/articles/case-study-golub.md):
+- [ALL](https://dai540.github.io/uccdf/articles/case-study-all.md):
+- [bladderEset](https://dai540.github.io/uccdf/articles/case-study-bladder.md):
 - [PimaIndiansDiabetes2](https://dai540.github.io/uccdf/articles/case-study-pima.md):
