@@ -1,6 +1,8 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://dai540.github.io/uccdf/404.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/case-study-all.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/articles/case-study-attitude.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/case-study-bladder.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/articles/case-study-cars93.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/articles/case-study-chickweight.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/articles/case-study-golub.html</loc></url>
@@ -8,7 +10,6 @@
 <url><loc>https://dai540.github.io/uccdf/articles/case-study-mtcars.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/articles/case-study-pima.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/articles/case-study-survey.html</loc></url>
-<url><loc>https://dai540.github.io/uccdf/articles/case-study-titanic.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/articles/case-study-usjudgeratings.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/articles/demo-bio.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/articles/demo-medical.html</loc></url>
@@ -22,7 +23,9 @@
 <url><loc>https://dai540.github.io/uccdf/LICENSE-text.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/news/index.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/reference/airway_gene_panel.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/reference/all_gene_panel.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/reference/augment.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/reference/bladder_gene_panel.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/reference/build_views.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/reference/fit_uccdf.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/reference/golub_gene_panel.html</loc></url>

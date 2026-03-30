@@ -36,7 +36,8 @@ The pkgdown site includes:
 - a multi-dataset article collection built on real data
 - dataset analyses for `airquality`, `CO2`, `Indometh`, `InsectSprays`,
   `survey`, `Cars93`, `iris`, `mtcars`, `ChickWeight`, `attitude`,
-  `USJudgeRatings`, `golub`, and `PimaIndiansDiabetes2`
+  `USJudgeRatings`, `golub`, `ALL`, `bladderEset`, and
+  `PimaIndiansDiabetes2`
 
 Version `0.1.0` is intentionally conservative. It focuses on structured
 tabular data with four core column types:
@@ -189,8 +190,12 @@ includes:
 
 Additional bundled real-data example tables include:
 
+- `all_gene_panel`, a compact leukemia expression panel derived from the
+  Bioconductor `ALL` dataset
 - `airway_gene_panel`, a compact RNA-seq derived panel from the
   Bioconductor `airway` dataset
+- `bladder_gene_panel`, a compact bladder cancer expression panel
+  derived from the Bioconductor `bladderbatch` dataset
 - `golub_gene_panel`, an omics expression panel derived from
   [`multtest::golub`](https://rdrr.io/pkg/multtest/man/golub.html)
 - `pima_biomarker_panel`, a clinical biomarker table derived from

@@ -7,6 +7,8 @@ template:
 development:
   mode: release
 
+llm-docs: false
+
 home:
   title: uccdf
   description: Typed consensus clustering for structured mixed-type data frames.
@@ -56,6 +58,10 @@ navbar:
           href: articles/case-study-usjudgeratings.html
         - text: golub
           href: articles/case-study-golub.html
+        - text: ALL
+          href: articles/case-study-all.html
+        - text: bladderEset
+          href: articles/case-study-bladder.html
         - text: PimaIndiansDiabetes2
           href: articles/case-study-pima.html
     github:
@@ -84,6 +90,8 @@ articles:
       - case-study-attitude
       - case-study-usjudgeratings
       - case-study-golub
+      - case-study-all
+      - case-study-bladder
       - case-study-pima
 
 reference:
@@ -102,8 +110,10 @@ reference:
       - plot_embedding
       - plot_consensus_heatmap
       - print.uccdf_fit
+      - all_gene_panel
       - simulate_mixed_data
       - airway_gene_panel
+      - bladder_gene_panel
       - golub_gene_panel
       - pima_biomarker_panel
       - toy_mixed_data

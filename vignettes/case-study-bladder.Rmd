@@ -1,0 +1,144 @@
+---
+title: "bladderEset"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{bladderEset}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 8.8, fig.height = 6.8, out.width = "100%")
+library(uccdf)
+```
+
+# Background
+
+`bladderEset` is distributed through the Bioconductor `bladderbatch` experiment
+package and is widely used to illustrate both biological heterogeneity and
+batch effects in bladder cancer expression studies. `uccdf` ships a reduced
+version called `bladder_gene_panel` that keeps a small set of highly variable
+probe sets together with pathology labels and the processing batch annotation.
+
+This dataset is valuable because the interpretation is not one-dimensional. A
+cluster can reflect tumor state, pathology subtype, technical batch, or a
+mixture of those effects. That makes it a more realistic omics example than a
+perfectly separated textbook benchmark.
+
+# Objective
+
+The objective is to test whether the reduced bladder expression panel supports a
+stable multi-cluster solution and to understand whether the recovered groups are
+better explained by pathology status, by technical batch, or by a blend of
+both. This matters because practical consensus clustering is often used in
+exactly this kind of confounded setting.
+
+# Data preparation
+
+```{r}
+if (file.exists("data/bladder_gene_panel.rda")) {
+  load("data/bladder_gene_panel.rda")
+} else if (file.exists("../data/bladder_gene_panel.rda")) {
+  load("../data/bladder_gene_panel.rda")
+} else {
+  data(bladder_gene_panel, package = "uccdf")
+}
+analysis_bladder <- bladder_gene_panel[, c(
+  "sample_id", "202917_s_at", "217022_s_at", "207935_s_at", "211430_s_at",
+  "202409_at", "205916_at", "214677_x_at", "212768_s_at"
+)]
+head(analysis_bladder)
+```
+
+```{r}
+table(bladder_gene_panel$outcome, useNA = "ifany")
+table(bladder_gene_panel$batch, useNA = "ifany")
+```
+
+# Analysis
+
+```{r}
+fit_bladder <- fit_uccdf(
+  analysis_bladder,
+  id_column = "sample_id",
+  candidate_k = 1:5,
+  n_resamples = 20,
+  n_null = 39,
+  row_fraction = 0.9,
+  col_fraction = 0.9,
+  seed = 808
+)
+
+fit_bladder$selection
+select_k(fit_bladder)
+```
+
+# Results
+
+```{r}
+bladder_assign <- merge(
+  augment(fit_bladder),
+  bladder_gene_panel,
+  by.x = "row_id",
+  by.y = "sample_id",
+  all.x = TRUE
+)
+
+head(bladder_assign)
+```
+
+```{r}
+aggregate(
+  cbind(`202917_s_at`, `217022_s_at`, `207935_s_at`, `211430_s_at`,
+        `202409_at`, `205916_at`, `214677_x_at`, `212768_s_at`, confidence) ~ cluster,
+  bladder_assign,
+  function(x) round(mean(x, na.rm = TRUE), 2)
+)
+```
+
+```{r}
+table(bladder_assign$cluster, bladder_assign$outcome)
+round(prop.table(table(bladder_assign$cluster, bladder_assign$outcome), margin = 1), 3)
+```
+
+```{r}
+table(bladder_assign$cluster, bladder_assign$batch)
+round(prop.table(table(bladder_assign$cluster, bladder_assign$batch), margin = 1), 3)
+```
+
+```{r}
+plot_embedding(fit_bladder, color_by = "selected", main = "bladderEset latent embedding")
+plot_consensus_heatmap(fit_bladder, main = "bladderEset consensus heatmap")
+```
+
+# Discussion
+
+The bladder panel is more complicated than `ALL`, and that is precisely why it
+is worth keeping in the tutorial set. The selected solution is larger than two
+clusters, and the interpretation tables show that no single explanatory factor
+fully accounts for every cluster. Some groups are enriched for one pathology
+label, some are mixed, and some show a noticeable batch preference. That means
+the consensus is capturing real structure, but the structure is not purely
+biological in the simple sense of one disease label per group.
+
+This is an important practical lesson. In real omics work, a stable cluster is
+not automatically a biological subtype. The bladder example shows how `uccdf`
+helps with that distinction. The null calibration tells us the multi-cluster
+pattern is stronger than a column-permuted baseline, while the cross-tabulation
+against `outcome` and `batch` makes it possible to inspect whether the
+stability is driven by interpretable pathology, by technical effects, or by a
+combination of both.
+
+The heatmap is particularly useful here. Instead of a clean two-block layout,
+we usually see several consensus blocks with different levels of separation.
+That visual pattern matches the selection output: the data support multiple
+groups, but the boundaries are not equally sharp across all samples.
+
+# Interpretation
+
+For `bladderEset`, the selected clusters should be interpreted as stable
+expression-defined sample strata in a partially confounded study. Some clusters
+track pathology more strongly, while others appear to absorb residual batch or
+mixed heterogeneity. The right takeaway is therefore not "these are definitive
+subtypes," but rather "these are the recurrent structures worth checking
+against pathology and batch before making a biological claim."

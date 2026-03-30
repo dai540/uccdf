@@ -1,0 +1,156 @@
+---
+title: "ALL"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ALL}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 8.8, fig.height = 6.8, out.width = "100%")
+library(uccdf)
+```
+
+# Background
+
+`ALL` is a classic Bioconductor microarray experiment package for acute
+lymphoblastic leukemia. The raw experiment contains expression measurements for
+128 patients together with immunophenotype and molecular subtype annotations.
+`uccdf` ships a compact derivative called `all_gene_panel` that preserves a
+small set of highly variable probe sets together with the observed lineage and
+clinical context needed for interpretation.
+
+This is a useful omics example because the dominant biological axis is not
+subtle. B-lineage and T-lineage samples differ strongly, and some molecular
+subtypes sit on top of that broader split. A tutorial article should therefore
+do more than state that clusters exist. It should show which expression
+features carry the separation, how strongly the consensus supports the split,
+and how the resulting groups line up with established leukemia annotations.
+
+# Objective
+
+The objective is to determine whether the reduced `ALL` panel supports a stable
+consensus partition and whether the selected clusters correspond to the major
+B-cell versus T-cell immunophenotype distinction. A secondary objective is to
+check whether molecular subtype information remains unevenly distributed across
+the recovered clusters, which would suggest that the compact panel still
+contains clinically interpretable structure.
+
+# Data preparation
+
+```{r}
+if (file.exists("data/all_gene_panel.rda")) {
+  load("data/all_gene_panel.rda")
+} else if (file.exists("../data/all_gene_panel.rda")) {
+  load("../data/all_gene_panel.rda")
+} else {
+  data(all_gene_panel, package = "uccdf")
+}
+analysis_all <- all_gene_panel[, c(
+  "sample_id", "38355_at", "36638_at", "38514_at", "41214_at",
+  "36108_at", "39318_at", "38096_f_at", "38319_at"
+)]
+head(analysis_all)
+```
+
+```{r}
+table(all_gene_panel$bt, useNA = "ifany")
+table(all_gene_panel$sex, useNA = "ifany")
+summary(all_gene_panel$age)
+```
+
+# Analysis
+
+```{r}
+fit_all <- fit_uccdf(
+  analysis_all,
+  id_column = "sample_id",
+  candidate_k = 1:5,
+  n_resamples = 20,
+  n_null = 39,
+  row_fraction = 0.9,
+  col_fraction = 0.9,
+  seed = 101
+)
+
+fit_all$selection
+select_k(fit_all)
+```
+
+# Results
+
+```{r}
+all_assign <- merge(
+  augment(fit_all),
+  all_gene_panel,
+  by.x = "row_id",
+  by.y = "sample_id",
+  all.x = TRUE
+)
+
+head(all_assign)
+```
+
+The selected solution should be read together with the assignment table. The
+key practical outputs are the selected cluster, the confidence value, and the
+original annotation columns used only for interpretation.
+
+```{r}
+aggregate(
+  cbind(`38355_at`, `36638_at`, `38514_at`, `41214_at`,
+        `36108_at`, `39318_at`, `38096_f_at`, `38319_at`, confidence) ~ cluster,
+  all_assign,
+  function(x) round(mean(x, na.rm = TRUE), 2)
+)
+```
+
+```{r}
+table(all_assign$cluster, all_assign$bt)
+round(prop.table(table(all_assign$cluster, all_assign$bt), margin = 1), 3)
+```
+
+```{r}
+sort(table(all_assign$mol_biol), decreasing = TRUE)[1:10]
+round(prop.table(table(all_assign$cluster, all_assign$mol_biol), margin = 1), 3)
+```
+
+```{r}
+plot_embedding(fit_all, color_by = "selected", main = "ALL latent embedding")
+plot_consensus_heatmap(fit_all, main = "ALL consensus heatmap")
+```
+
+# Discussion
+
+This dataset behaves the way a strong omics example should. The global null is
+rejected, the selected solution remains supported after null calibration, and
+the consensus heatmap shows a broad block structure rather than a fragile,
+sample-by-sample patchwork. In practice, the selected two-cluster solution
+aligns closely with the major B-lineage versus T-lineage separation. That is
+important because it shows the compact panel still carries the dominant biology
+even after the original expression matrix has been reduced to a small sample
+table.
+
+The subtype table adds a second layer of interpretation. Several molecular
+subtypes concentrate within one lineage-defined cluster rather than being
+distributed uniformly across both groups. That is exactly the pattern we would
+expect if the first consensus split captures a broad developmental axis and the
+remaining within-lineage heterogeneity is real but secondary. In other words,
+the compact panel is not merely separating noise; it is preserving an
+interpretable hierarchy of disease structure.
+
+The article also highlights a design point of `uccdf`. The package is not
+trying to replace a full leukemia workflow based on the original
+high-dimensional matrix. Instead, it shows how one can carry a biologically
+grounded sample-level table into a typed consensus analysis while keeping the
+output defensible with a null-calibrated `K` decision.
+
+# Interpretation
+
+For `ALL`, the selected clusters should be interpreted as stable
+expression-defined patient groups that primarily reflect the B-cell versus
+T-cell immunophenotype split. The agreement with `bt` is strong enough that the
+clusters are easy to explain, while the molecular subtype table reminds us that
+each cluster still contains clinically meaningful internal heterogeneity. In a
+real project, this would justify drilling into subtype-enriched clusters rather
+than stopping at the first partition.

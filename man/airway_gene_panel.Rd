@@ -8,12 +8,12 @@
 A data frame with 8 rows and 9 variables:
 \describe{
 \item{sample_id}{Sample identifier.}
-\item{RPS4Y1}{Log-scale expression value.}
-\item{XIST}{Log-scale expression value.}
-\item{USP9Y}{Log-scale expression value.}
-\item{DDX3Y}{Log-scale expression value.}
-\item{TXLNG2P}{Log-scale expression value.}
-\item{KDM5D}{Log-scale expression value.}
+\item{ENSG00000129824}{Log-scale expression value.}
+\item{ENSG00000229807}{Log-scale expression value.}
+\item{ENSG00000114374}{Log-scale expression value.}
+\item{ENSG00000067048}{Log-scale expression value.}
+\item{ENSG00000131002}{Log-scale expression value.}
+\item{ENSG00000012817}{Log-scale expression value.}
 \item{dex}{Treatment status.}
 \item{cell}{Cell-line identifier.}
 }
