@@ -1,5 +1,12 @@
 url: https://dai540.github.io/uccdf/
 
+repo:
+  url:
+    home: https://github.com/dai540/uccdf
+    source: https://github.com/dai540/uccdf/blob/main
+    issue: https://github.com/dai540/uccdf/issues/
+    user: https://github.com/
+
 template:
   bootstrap: 5
   bootswatch: flatly
@@ -29,11 +36,12 @@ navbar:
     articles:
       text: Articles
       menu:
+        - text: Core articles
         - text: Method and Design
           href: articles/method-and-design.html
         - text: Existing Methods Comparison
           href: articles/method-comparison.html
-        - text: Datasets
+        - text: Case studies
         - text: airquality
           href: articles/getting-started.html
         - text: CO2
@@ -70,13 +78,13 @@ navbar:
       aria-label: GitHub repository
 
 articles:
-  - title: Core
+  - title: Core tutorials
     navbar: Core
     contents:
       - method-and-design
       - method-comparison
-  - title: Real dataset analyses
-    navbar: Datasets
+  - title: Case studies
+    navbar: Case Studies
     contents:
       - getting-started
       - demo-bio
