@@ -1,6 +1,19 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://dai540.github.io/uccdf/404.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/LICENSE-text.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/case-airquality.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/case-all.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/case-attitude.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/case-bladdereset.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/case-cars93.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/case-chickweight.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/case-co2.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/case-golub.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/case-indometh.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/case-insectsprays.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/case-iris.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/case-mtcars.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/case-pimaindiansdiabetes2.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/articles/case-study-all.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/articles/case-study-attitude.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/articles/case-study-bladder.html</loc></url>
@@ -12,6 +25,10 @@
 <url><loc>https://dai540.github.io/uccdf/articles/case-study-pima.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/articles/case-study-survey.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/articles/case-study-usjudgeratings.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/case-survey.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/case-usjudgeratings.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/comparison-existing-methods.html</loc></url>
+<url><loc>https://dai540.github.io/uccdf/articles/core-method-and-design.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/articles/demo-bio.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/articles/demo-medical.html</loc></url>
 <url><loc>https://dai540.github.io/uccdf/articles/demo-other.html</loc></url>

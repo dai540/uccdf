@@ -157,16 +157,16 @@ individual sprays.</p>
 <span><span class="co">#&gt; $best_supported_k</span></span>
 <span><span class="co">#&gt; [1] 2</span></span>
 <span><span class="fu"><a href="../reference/select_k.html">select_k</a></span><span class="op">(</span><span class="va">fit_sprays</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   k stability null_mean    null_sd stability_excess   z_score p_value supported</span></span>
-<span><span class="co">#&gt; 1 2 0.9482595 0.3794889 0.05330266        0.5687707 10.670586   0.025      TRUE</span></span>
-<span><span class="co">#&gt; 2 3 0.6940628 0.3165129 0.05329006        0.3775500  7.084809   0.025      TRUE</span></span>
-<span><span class="co">#&gt; 3 4 0.6466631 0.4073242 0.05027403        0.2393389  4.760686   0.025      TRUE</span></span>
-<span><span class="co">#&gt; 4 5 0.6959770 0.5446996 0.04357399        0.1512774  3.471735   0.025      TRUE</span></span>
+<span><span class="co">#&gt;   k stability null_mean    null_sd stability_excess  z_score p_value supported</span></span>
+<span><span class="co">#&gt; 1 2 0.9499258 0.3861876 0.06245955        0.5637381 9.025651   0.025      TRUE</span></span>
+<span><span class="co">#&gt; 2 3 0.6751667 0.3059309 0.07799298        0.3692358 4.734218   0.025      TRUE</span></span>
+<span><span class="co">#&gt; 3 4 0.6607274 0.3968874 0.07099223        0.2638400 3.716463   0.025      TRUE</span></span>
+<span><span class="co">#&gt; 4 5 0.7117390 0.5399919 0.05336445        0.1717470 3.218378   0.025      TRUE</span></span>
 <span><span class="co">#&gt;   objective</span></span>
-<span><span class="co">#&gt; 1 10.531956</span></span>
-<span><span class="co">#&gt; 2  6.865087</span></span>
-<span><span class="co">#&gt; 3  4.483427</span></span>
-<span><span class="co">#&gt; 4  3.149848</span></span></code></pre></div>
+<span><span class="co">#&gt; 1  8.887021</span></span>
+<span><span class="co">#&gt; 2  4.514495</span></span>
+<span><span class="co">#&gt; 3  3.439204</span></span>
+<span><span class="co">#&gt; 4  2.896491</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="results">Results<a class="anchor" aria-label="anchor" href="#results"></a>
@@ -175,19 +175,19 @@ individual sprays.</p>
 <code class="sourceCode R"><span><span class="va">sprays_assign</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="fu"><a href="../reference/augment.html">augment</a></span><span class="op">(</span><span class="va">fit_sprays</span><span class="op">)</span>, <span class="va">sprays_df</span>, by.x <span class="op">=</span> <span class="st">"row_id"</span>, by.y <span class="op">=</span> <span class="st">"sample_id"</span>, all.x <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sprays_assign</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   row_id cluster confidence   ambiguity exploratory_cluster</span></span>
-<span><span class="co">#&gt; 1  IS001       1  0.9790482 0.020951786                   1</span></span>
-<span><span class="co">#&gt; 2  IS002       1  0.9598161 0.040183870                   1</span></span>
-<span><span class="co">#&gt; 3  IS003       1  0.9936606 0.006339424                   1</span></span>
-<span><span class="co">#&gt; 4  IS004       1  0.9915717 0.008428300                   1</span></span>
-<span><span class="co">#&gt; 5  IS005       1  0.9931632 0.006836759                   1</span></span>
-<span><span class="co">#&gt; 6  IS006       1  0.9934966 0.006503419                   1</span></span>
+<span><span class="co">#&gt; 1  IS001       1  0.9781701 0.021829861                   1</span></span>
+<span><span class="co">#&gt; 2  IS002       1  0.9652655 0.034734506                   1</span></span>
+<span><span class="co">#&gt; 3  IS003       1  0.9928565 0.007143456                   1</span></span>
+<span><span class="co">#&gt; 4  IS004       1  0.9927567 0.007243336                   1</span></span>
+<span><span class="co">#&gt; 5  IS005       1  0.9925926 0.007407408                   1</span></span>
+<span><span class="co">#&gt; 6  IS006       1  0.9955785 0.004421466                   1</span></span>
 <span><span class="co">#&gt;   exploratory_confidence exploratory_ambiguity assignment_mode selected_k</span></span>
-<span><span class="co">#&gt; 1              0.9790482           0.020951786        selected          2</span></span>
-<span><span class="co">#&gt; 2              0.9598161           0.040183870        selected          2</span></span>
-<span><span class="co">#&gt; 3              0.9936606           0.006339424        selected          2</span></span>
-<span><span class="co">#&gt; 4              0.9915717           0.008428300        selected          2</span></span>
-<span><span class="co">#&gt; 5              0.9931632           0.006836759        selected          2</span></span>
-<span><span class="co">#&gt; 6              0.9934966           0.006503419        selected          2</span></span>
+<span><span class="co">#&gt; 1              0.9781701           0.021829861        selected          2</span></span>
+<span><span class="co">#&gt; 2              0.9652655           0.034734506        selected          2</span></span>
+<span><span class="co">#&gt; 3              0.9928565           0.007143456        selected          2</span></span>
+<span><span class="co">#&gt; 4              0.9927567           0.007243336        selected          2</span></span>
+<span><span class="co">#&gt; 5              0.9925926           0.007407408        selected          2</span></span>
+<span><span class="co">#&gt; 6              0.9955785           0.004421466        selected          2</span></span>
 <span><span class="co">#&gt;   exploratory_k count spray count_band</span></span>
 <span><span class="co">#&gt; 1             2    10     A        mid</span></span>
 <span><span class="co">#&gt; 2             2     7     A        mid</span></span>
