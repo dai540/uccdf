@@ -62,3 +62,13 @@ for (path in c(
     unlink(path)
   }
 }
+
+md_files <- list.files(docs_dir, pattern = "\\.md$", recursive = TRUE, full.names = TRUE)
+if (length(md_files)) {
+  unlink(md_files)
+}
+
+tutorials_dir <- file.path(docs_dir, "tutorials")
+if (dir.exists(tutorials_dir)) {
+  unlink(tutorials_dir, recursive = TRUE)
+}
