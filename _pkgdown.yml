@@ -38,40 +38,40 @@ navbar:
       menu:
         - text: Core articles
         - text: Method and Design
-          href: articles/method-and-design.html
+          href: articles/core-method-and-design.html
         - text: Existing Methods Comparison
-          href: articles/method-comparison.html
+          href: articles/comparison-existing-methods.html
         - text: Case studies
         - text: airquality
-          href: articles/getting-started.html
+          href: articles/case-airquality.html
         - text: CO2
-          href: articles/demo-bio.html
+          href: articles/case-co2.html
         - text: Indometh
-          href: articles/demo-medical.html
+          href: articles/case-indometh.html
         - text: InsectSprays
-          href: articles/demo-other.html
+          href: articles/case-insectsprays.html
         - text: survey
-          href: articles/case-study-survey.html
+          href: articles/case-survey.html
         - text: Cars93
-          href: articles/case-study-cars93.html
+          href: articles/case-cars93.html
         - text: iris
-          href: articles/case-study-iris.html
+          href: articles/case-iris.html
         - text: mtcars
-          href: articles/case-study-mtcars.html
+          href: articles/case-mtcars.html
         - text: ChickWeight
-          href: articles/case-study-chickweight.html
+          href: articles/case-chickweight.html
         - text: attitude
-          href: articles/case-study-attitude.html
+          href: articles/case-attitude.html
         - text: USJudgeRatings
-          href: articles/case-study-usjudgeratings.html
+          href: articles/case-usjudgeratings.html
         - text: golub
-          href: articles/case-study-golub.html
+          href: articles/case-golub.html
         - text: ALL
-          href: articles/case-study-all.html
+          href: articles/case-all.html
         - text: bladderEset
-          href: articles/case-study-bladder.html
+          href: articles/case-bladdereset.html
         - text: PimaIndiansDiabetes2
-          href: articles/case-study-pima.html
+          href: articles/case-pimaindiansdiabetes2.html
     github:
       icon: fa-github
       href: https://github.com/dai540/uccdf
@@ -81,26 +81,26 @@ articles:
   - title: Core tutorials
     navbar: Core
     contents:
-      - method-and-design
-      - method-comparison
+      - core-method-and-design
+      - comparison-existing-methods
   - title: Case studies
     navbar: Case Studies
     contents:
-      - getting-started
-      - demo-bio
-      - demo-medical
-      - demo-other
-      - case-study-survey
-      - case-study-cars93
-      - case-study-iris
-      - case-study-mtcars
-      - case-study-chickweight
-      - case-study-attitude
-      - case-study-usjudgeratings
-      - case-study-golub
-      - case-study-all
-      - case-study-bladder
-      - case-study-pima
+      - case-airquality
+      - case-co2
+      - case-indometh
+      - case-insectsprays
+      - case-survey
+      - case-cars93
+      - case-iris
+      - case-mtcars
+      - case-chickweight
+      - case-attitude
+      - case-usjudgeratings
+      - case-golub
+      - case-all
+      - case-bladdereset
+      - case-pimaindiansdiabetes2
 
 reference:
   - title: Core workflow
