@@ -1,3 +1,41 @@
+#' @export
+print.uccdf_fit <- function(x, ...) {
+  cat("uccdf fit\n")
+  cat(sprintf("- samples: %s\n", nrow(x$data)))
+  cat(sprintf("- active columns: %s\n", sum(x$schema$role == "active")))
+  cat(sprintf("- selected_k: %s\n", x$selected_k))
+  cat(sprintf("- detected_structure: %s\n", x$selection$detected_structure))
+  cat(sprintf("- best_exploratory_k: %s\n", x$selection$best_exploratory_k))
+  cat(sprintf("- global_p_value: %.4f\n", x$selection$global_p_value))
+  invisible(x)
+}
+
+#' @export
+plot.uccdf_fit <- function(x, type = c("selection", "confidence"), ...) {
+  type <- match.arg(type)
+  old <- graphics::par(no.readonly = TRUE)
+  on.exit(graphics::par(old))
+  if (identical(type, "selection")) {
+    tbl <- x$k_table
+    graphics::plot(tbl$k, tbl$stability,
+      type = "b", pch = 19, xlab = "K", ylab = "Stability", ...
+    )
+    graphics::abline(v = x$selected_k, lty = 2, col = "firebrick")
+    return(invisible(x))
+  }
+  score <- if (all(is.na(x$assignments$confidence))) x$assignments$exploratory_confidence else x$assignments$confidence
+  title <- if (all(is.na(x$assignments$confidence))) {
+    "Exploratory assignment confidence"
+  } else {
+    "Assignment confidence"
+  }
+  graphics::boxplot(score,
+    horizontal = TRUE, xlab = "Confidence",
+    main = title, ...
+  )
+  invisible(x)
+}
+
 #' Plot the Mixed-Latent Embedding
 #'
 #' Draws a low-dimensional scatter plot from the mixed-latent view stored in a

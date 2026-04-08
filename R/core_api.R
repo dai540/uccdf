@@ -1,3 +1,113 @@
+#' Validate a Structured Input Table
+#'
+#' Checks that an input object can be treated as a tabular clustering input.
+#'
+#' @param data A data frame or matrix-like object.
+#' @param id_column Optional identifier column name.
+#' @param min_rows Minimum number of rows required.
+#'
+#' @return A validated data frame with class `uccdf_validated`.
+#' @examples
+#' dat <- simulate_mixed_data(n = 20, k = 2, seed = 1)
+#' validated <- validate_input(dat, id_column = "sample_id")
+#' nrow(validated)
+#' @export
+validate_input <- function(data, id_column = NULL, min_rows = 5L) {
+  data <- .as_data_frame(data)
+  if (!is.null(id_column)) {
+    .validate_single_string(id_column, "id_column")
+    if (!id_column %in% names(data)) {
+      stop("`id_column` was not found in `data`.", call. = FALSE)
+    }
+    ids <- data[[id_column]]
+    if (anyDuplicated(ids)) {
+      stop("`id_column` must be unique.", call. = FALSE)
+    }
+  }
+  if (anyDuplicated(names(data))) {
+    stop("Column names must be unique.", call. = FALSE)
+  }
+  if (nrow(data) < min_rows) {
+    stop("`data` does not meet the minimum row requirement.", call. = FALSE)
+  }
+  class(data) <- c("uccdf_validated", class(data))
+  data
+}
+
+#' Infer a Simple Column Schema
+#'
+#' Infers coarse variable types and clustering roles for a structured data frame.
+#'
+#' @param data A validated data frame or raw input table.
+#' @param id_column Optional identifier column name.
+#' @param ordinal_columns Optional character vector of columns to force as ordinal.
+#'
+#' @return A data frame describing the inferred schema.
+#' @examples
+#' dat <- simulate_mixed_data(n = 20, k = 2, seed = 1)
+#' schema <- infer_schema(dat, id_column = "sample_id")
+#' schema[, c("column_name", "type", "role")]
+#' @export
+infer_schema <- function(data, id_column = NULL, ordinal_columns = NULL) {
+  data <- validate_input(data, id_column = id_column)
+  out <- data.frame(
+    column_name = names(data),
+    type = character(ncol(data)),
+    role = character(ncol(data)),
+    weight_init = numeric(ncol(data)),
+    missing_rate = numeric(ncol(data)),
+    unique_ratio = numeric(ncol(data)),
+    exclude_flag = logical(ncol(data)),
+    stringsAsFactors = FALSE
+  )
+  for (i in seq_along(data)) {
+    nm <- names(data)[i]
+    x <- data[[i]]
+    inferred <- .detect_type(x)
+    if (!is.null(ordinal_columns) && nm %in% ordinal_columns) {
+      inferred <- "ordinal"
+    }
+    role <- .infer_role(nm, x, id_column)
+    x_obs <- x[!is.na(x)]
+    unique_ratio <- if (length(x_obs)) length(unique(x_obs)) / length(x_obs) else 0
+    out$type[i] <- inferred
+    out$role[i] <- role
+    out$weight_init[i] <- if (identical(role, "active")) 1 else 0
+    out$missing_rate[i] <- mean(is.na(x))
+    out$unique_ratio[i] <- unique_ratio
+    out$exclude_flag[i] <- identical(role, "exclude")
+  }
+  class(out) <- c("uccdf_schema", class(out))
+  out
+}
+
+#' Build Canonical UCCDF Views
+#'
+#' Constructs the mixed-distance and mixed-latent views used by `fit_uccdf()`.
+#'
+#' @param data A data frame.
+#' @param schema A schema produced by [infer_schema()].
+#' @param columns Optional subset of active columns.
+#' @param latent_dims Number of latent dimensions to retain.
+#'
+#' @return A named list containing `mixed_distance` and `mixed_latent`.
+#' @examples
+#' dat <- simulate_mixed_data(n = 30, k = 3, seed = 2)
+#' schema <- infer_schema(dat, id_column = "sample_id")
+#' views <- build_views(dat, schema)
+#' names(views)
+#' @export
+build_views <- function(data, schema, columns = NULL, latent_dims = 5L) {
+  data <- .as_data_frame(data)
+  if (is.null(columns)) {
+    columns <- schema$column_name[schema$role == "active"]
+  }
+  list(
+    mixed_distance = .compute_mixed_distance(data, schema, columns),
+    mixed_latent = .build_latent_view(data, schema, columns, dims = latent_dims)
+  )
+}
+
 #' Fit Typed Consensus Clustering
 #'
 #' Runs a compact typed consensus clustering workflow for a structured data
@@ -174,4 +284,74 @@ fit_uccdf <- function(data,
   )
   class(out) <- "uccdf_fit"
   out
+}
+
+#' Extract the K Selection Table
+#'
+#' Returns the null-calibrated K summary from a fitted `uccdf` object.
+#'
+#' @param fit A fitted object from [fit_uccdf()].
+#'
+#' @return A data frame with per-K stability and selection statistics.
+#' @examples
+#' dat <- simulate_mixed_data(n = 40, k = 2, seed = 1)
+#' fit <- fit_uccdf(dat, id_column = "sample_id", n_resamples = 10, n_null = 39, seed = 1)
+#' select_k(fit)
+#' @export
+select_k <- function(fit) {
+  if (!inherits(fit, "uccdf_fit")) {
+    stop("`fit` must inherit from `uccdf_fit`.", call. = FALSE)
+  }
+  fit$k_table
+}
+
+#' Extract Sample-Level Cluster Assignments
+#'
+#' Returns row-level selected and exploratory assignments from a fitted object.
+#'
+#' @param fit A fitted object from [fit_uccdf()].
+#'
+#' @return A data frame with one row per sample. When the global null is not
+#'   rejected, `cluster` remains 1 while `exploratory_*` columns expose the best
+#'   unsupported multi-cluster split.
+#' @examples
+#' dat <- simulate_mixed_data(n = 40, k = 2, seed = 1)
+#' fit <- fit_uccdf(dat, id_column = "sample_id", n_resamples = 10, n_null = 39, seed = 1)
+#' head(augment(fit))
+#' @export
+augment <- function(fit) {
+  if (!inherits(fit, "uccdf_fit")) {
+    stop("`fit` must inherit from `uccdf_fit`.", call. = FALSE)
+  }
+  fit$assignments
+}
+
+#' Write a Compact UCCDF Report
+#'
+#' Writes a short markdown or html summary of a fitted `uccdf` analysis.
+#'
+#' @param fit A fitted object from [fit_uccdf()].
+#' @param file Output file path.
+#' @param format Either `"md"` or `"html"`.
+#'
+#' @return Invisibly returns `file`.
+#' @examples
+#' dat <- simulate_mixed_data(n = 30, k = 2, seed = 1)
+#' fit <- fit_uccdf(dat, id_column = "sample_id", n_resamples = 10, n_null = 39, seed = 1)
+#' tmp <- tempfile(fileext = ".md")
+#' report(fit, tmp, format = "md")
+#' file.exists(tmp)
+#' @export
+report <- function(fit, file, format = c("md", "html")) {
+  if (!inherits(fit, "uccdf_fit")) {
+    stop("`fit` must inherit from `uccdf_fit`.", call. = FALSE)
+  }
+  format <- match.arg(format)
+  lines <- .compact_report_lines(fit)
+  if (identical(format, "html")) {
+    body <- paste(sprintf("<p>%s</p>", gsub("^# ", "", lines)), collapse = "\n")
+    lines <- c("<html><body>", body, "</body></html>")
+  }
+  writeLines(lines, con = file, useBytes = TRUE)
+  invisible(file)
 }
