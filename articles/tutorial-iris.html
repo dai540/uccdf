@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Getting Started • uccdf</title>
+<title>iris • uccdf</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Getting Started">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="iris">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -29,14 +29,14 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="active nav-item"><a class="nav-link" href="../articles/getting-started.html">Getting Started</a></li>
+<li class="nav-item"><a class="nav-link" href="../articles/getting-started.html">Getting Started</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
 <li><a class="dropdown-item" href="../articles/guide-method-overview.html">Method Overview</a></li>
   </ul>
 </li>
-<li class="nav-item dropdown">
+<li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-tutorials" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Tutorials</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-tutorials">
 <li><a class="dropdown-item" href="../articles/tutorial-iris.html">iris</a></li>
@@ -63,65 +63,41 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>Getting Started</h1>
+      <h1>iris</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dai540/uccdf/blob/main/vignettes/getting-started.Rmd" class="external-link"><code>vignettes/getting-started.Rmd</code></a></small>
-      <div class="d-none name"><code>getting-started.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/dai540/uccdf/blob/main/vignettes/tutorial-iris.Rmd" class="external-link"><code>vignettes/tutorial-iris.Rmd</code></a></small>
+      <div class="d-none name"><code>tutorial-iris.Rmd</code></div>
     </div>
 
     
     
 <div class="section level2">
-<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
-</h2>
-<p><code>uccdf</code> provides a compact consensus clustering workflow
-for tabular data frames. The package keeps the API small and avoids
-bundled large datasets.</p>
-</div>
-<div class="section level2">
-<h2 id="first-run">First run<a class="anchor" aria-label="anchor" href="#first-run"></a>
+<h2 id="tutorial">Tutorial<a class="anchor" aria-label="anchor" href="#tutorial"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_uccdf.html">fit_uccdf</a></span><span class="op">(</span><span class="va">iris</span>, candidate_k <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, n_resamples <span class="op">=</span> <span class="fl">20</span>, seed <span class="op">=</span> <span class="fl">42</span><span class="op">)</span></span>
-<span><span class="va">fit</span></span>
-<span><span class="co">#&gt; uccdf fit</span></span>
-<span><span class="co">#&gt; - rows: 150</span></span>
-<span><span class="co">#&gt; - active columns: 5</span></span>
-<span><span class="co">#&gt; - selected_k: 2</span></span>
+<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_uccdf.html">fit_uccdf</a></span><span class="op">(</span><span class="va">iris</span>, candidate_k <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, n_resamples <span class="op">=</span> <span class="fl">20</span>, seed <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/select_k.html">select_k</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   k stability</span></span>
-<span><span class="co">#&gt; 1 2 0.9599499</span></span>
-<span><span class="co">#&gt; 2 3 0.8362363</span></span>
-<span><span class="co">#&gt; 3 4 0.7665610</span></span>
+<span><span class="co">#&gt; 1 2 0.9618709</span></span>
+<span><span class="co">#&gt; 2 3 0.8493877</span></span>
+<span><span class="co">#&gt; 3 4 0.7782389</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/augment.html">augment</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   row_id cluster confidence    ambiguity</span></span>
-<span><span class="co">#&gt; 1      1       1          1 3.972623e-10</span></span>
-<span><span class="co">#&gt; 2      2       1          1 4.269387e-10</span></span>
-<span><span class="co">#&gt; 3      3       1          1 3.782320e-10</span></span>
-<span><span class="co">#&gt; 4      4       1          1 5.252342e-10</span></span>
-<span><span class="co">#&gt; 5      5       1          1 3.554589e-10</span></span>
-<span><span class="co">#&gt; 6      6       1          1 4.596959e-10</span></span></code></pre></div>
+<span><span class="co">#&gt; 1      1       1          1 4.586135e-10</span></span>
+<span><span class="co">#&gt; 2      2       1          1 4.292094e-10</span></span>
+<span><span class="co">#&gt; 3      3       1          1 3.401017e-10</span></span>
+<span><span class="co">#&gt; 4      4       1          1 3.614224e-10</span></span>
+<span><span class="co">#&gt; 5      5       1          1 5.003852e-10</span></span>
+<span><span class="co">#&gt; 6      6       1          1 4.632703e-10</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_embedding.html">plot_embedding</a></span><span class="op">(</span><span class="va">fit</span>, main <span class="op">=</span> <span class="st">"iris latent embedding"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="tutorial-iris_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_consensus_heatmap.html">plot_consensus_heatmap</a></span><span class="op">(</span><span class="va">fit</span>, main <span class="op">=</span> <span class="st">"iris consensus heatmap"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/unnamed-chunk-3-2.png" class="r-plt" alt="" width="700"></p>
+<p><img src="tutorial-iris_files/figure-html/unnamed-chunk-3-2.png" class="r-plt" alt="" width="700"></p>
 </div>
-<div class="section level2">
-<h2 id="output">Output<a class="anchor" aria-label="anchor" href="#output"></a>
-</h2>
-<p>The main outputs are:</p>
-<ul>
-<li>the selected <code>K</code>
-</li>
-<li>the row-level assignments</li>
-<li>the consensus-derived confidence values</li>
-</ul>
-</div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
-    </nav></aside>
+  </main>
 </div>
 
 

@@ -2,24 +2,11 @@ pandoc: 3.1.11
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
-  case-airquality: case-airquality.html
-  case-all: case-all.html
-  case-attitude: case-attitude.html
-  case-bladdereset: case-bladdereset.html
-  case-cars93: case-cars93.html
-  case-chickweight: case-chickweight.html
-  case-co2: case-co2.html
-  case-golub: case-golub.html
-  case-indometh: case-indometh.html
-  case-insectsprays: case-insectsprays.html
-  case-iris: case-iris.html
-  case-mtcars: case-mtcars.html
-  case-pimaindiansdiabetes2: case-pimaindiansdiabetes2.html
-  case-survey: case-survey.html
-  case-usjudgeratings: case-usjudgeratings.html
-  comparison-existing-methods: comparison-existing-methods.html
-  core-method-and-design: core-method-and-design.html
-last_built: 2026-04-08T23:15Z
+  getting-started: getting-started.html
+  guide-method-overview: guide-method-overview.html
+  tutorial-iris: tutorial-iris.html
+  tutorial-mtcars: tutorial-mtcars.html
+last_built: 2026-04-12T23:42Z
 urls:
   reference: https://dai540.github.io/uccdf/reference
   article: https://dai540.github.io/uccdf/articles
