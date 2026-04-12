@@ -2,28 +2,22 @@
 % Please edit documentation in R/core_api.R
 \name{build_views}
 \alias{build_views}
-\title{Build Canonical UCCDF Views}
+\title{Build Canonical Views}
 \usage{
-build_views(data, schema, columns = NULL, latent_dims = 5L)
+build_views(data, schema, columns = NULL, latent_dims = 4L)
 }
 \arguments{
 \item{data}{A data frame.}
 
 \item{schema}{A schema produced by \code{\link[=infer_schema]{infer_schema()}}.}
 
-\item{columns}{Optional subset of active columns.}
+\item{columns}{Optional active columns.}
 
-\item{latent_dims}{Number of latent dimensions to retain.}
+\item{latent_dims}{Number of latent dimensions.}
 }
 \value{
-A named list containing \code{mixed_distance} and \code{mixed_latent}.
+A list with \code{mixed_distance} and \code{mixed_latent}.
 }
 \description{
-Constructs the mixed-distance and mixed-latent views used by \code{fit_uccdf()}.
-}
-\examples{
-dat <- simulate_mixed_data(n = 30, k = 3, seed = 2)
-schema <- infer_schema(dat, id_column = "sample_id")
-views <- build_views(dat, schema)
-names(views)
+Build Canonical Views
 }

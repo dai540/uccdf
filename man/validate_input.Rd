@@ -14,13 +14,8 @@ validate_input(data, id_column = NULL, min_rows = 5L)
 \item{min_rows}{Minimum number of rows required.}
 }
 \value{
-A validated data frame with class \code{uccdf_validated}.
+A validated data frame.
 }
 \description{
-Checks that an input object can be treated as a tabular clustering input.
-}
-\examples{
-dat <- simulate_mixed_data(n = 20, k = 2, seed = 1)
-validated <- validate_input(dat, id_column = "sample_id")
-nrow(validated)
+Validate a Structured Input Table
 }

@@ -7,10 +7,9 @@
 plot_consensus_heatmap(fit, k = NULL, ...)
 }
 \arguments{
-\item{fit}{A fitted object from \code{\link[=fit_uccdf]{fit_uccdf()}}.}
+\item{fit}{A \code{uccdf_fit} object.}
 
-\item{k}{Optional \code{K} to display. Defaults to the selected \code{K} when
-available, otherwise the largest fitted \code{K}.}
+\item{k}{Optional \code{K}.}
 
 \item{...}{Additional arguments passed to \code{\link[stats:heatmap]{stats::heatmap()}}.}
 }
@@ -18,9 +17,5 @@ available, otherwise the largest fitted \code{K}.}
 Invisibly returns \code{fit}.
 }
 \description{
-Draws a hierarchical clustering heatmap of a consensus matrix.
-}
-\examples{
-fit <- fit_uccdf(toy_mixed_data, id_column = "sample_id", n_resamples = 8, n_null = 39, seed = 1)
-plot_consensus_heatmap(fit)
+Plot a Consensus Heatmap
 }

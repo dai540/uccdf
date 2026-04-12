@@ -1,9 +1,4 @@
 ^docs$
-^pkgdown$
-^data-raw$
-^README\.Rmd$
 ^\.github$
-^\.tmp_.*$
-^temp_.*\.R$
-^uccdf\.Rcheck$
+^sphinx$
 ^.*\.Rproj$

@@ -2,23 +2,16 @@
 % Please edit documentation in R/core_api.R
 \name{augment}
 \alias{augment}
-\title{Extract Sample-Level Cluster Assignments}
+\title{Return Sample-Level Assignments}
 \usage{
 augment(fit)
 }
 \arguments{
-\item{fit}{A fitted object from \code{\link[=fit_uccdf]{fit_uccdf()}}.}
+\item{fit}{A \code{uccdf_fit} object.}
 }
 \value{
-A data frame with one row per sample. When the global null is not
-rejected, \code{cluster} remains 1 while \verb{exploratory_*} columns expose the best
-unsupported multi-cluster split.
+A data frame.
 }
 \description{
-Returns row-level selected and exploratory assignments from a fitted object.
-}
-\examples{
-dat <- simulate_mixed_data(n = 40, k = 2, seed = 1)
-fit <- fit_uccdf(dat, id_column = "sample_id", n_resamples = 10, n_null = 39, seed = 1)
-head(augment(fit))
+Return Sample-Level Assignments
 }

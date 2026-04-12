@@ -1,0 +1,26 @@
+---
+title: "mtcars"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{mtcars}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(uccdf)
+```
+
+# Tutorial
+
+```{r}
+fit <- fit_uccdf(mtcars, candidate_k = 2:4, n_resamples = 20, seed = 9)
+select_k(fit)
+head(augment(fit))
+```
+
+```{r}
+plot_embedding(fit, main = "mtcars latent embedding")
+plot_consensus_heatmap(fit, main = "mtcars consensus heatmap")
+```

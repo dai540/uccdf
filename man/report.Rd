@@ -2,27 +2,20 @@
 % Please edit documentation in R/core_api.R
 \name{report}
 \alias{report}
-\title{Write a Compact UCCDF Report}
+\title{Write a Compact Report}
 \usage{
 report(fit, file, format = c("md", "html"))
 }
 \arguments{
-\item{fit}{A fitted object from \code{\link[=fit_uccdf]{fit_uccdf()}}.}
+\item{fit}{A \code{uccdf_fit} object.}
 
 \item{file}{Output file path.}
 
 \item{format}{Either \code{"md"} or \code{"html"}.}
 }
 \value{
-Invisibly returns \code{file}.
+Invisibly returns the output path.
 }
 \description{
-Writes a short markdown or html summary of a fitted \code{uccdf} analysis.
-}
-\examples{
-dat <- simulate_mixed_data(n = 30, k = 2, seed = 1)
-fit <- fit_uccdf(dat, id_column = "sample_id", n_resamples = 10, n_null = 39, seed = 1)
-tmp <- tempfile(fileext = ".md")
-report(fit, tmp, format = "md")
-file.exists(tmp)
+Write a Compact Report
 }

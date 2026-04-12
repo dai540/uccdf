@@ -1,5 +1,4 @@
-if (requireNamespace("testthat", quietly = TRUE)) {
-  library(testthat)
-  library(uccdf)
-  test_check("uccdf")
-}
+library(testthat)
+library(uccdf)
+
+test_check("uccdf")

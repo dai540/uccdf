@@ -2,24 +2,14 @@
 % Please edit documentation in R/visualization.R
 \name{plot_embedding}
 \alias{plot_embedding}
-\title{Plot the Mixed-Latent Embedding}
+\title{Plot the Latent Embedding}
 \usage{
-plot_embedding(
-  fit,
-  dims = c(1, 2),
-  color_by = c("auto", "selected", "exploratory"),
-  show_labels = FALSE,
-  ...
-)
+plot_embedding(fit, dims = c(1, 2), ...)
 }
 \arguments{
-\item{fit}{A fitted object from \code{\link[=fit_uccdf]{fit_uccdf()}}.}
+\item{fit}{A \code{uccdf_fit} object.}
 
-\item{dims}{Two latent dimensions to plot.}
-
-\item{color_by}{Either \code{"auto"}, \code{"selected"}, or \code{"exploratory"}.}
-
-\item{show_labels}{Logical; if \code{TRUE}, draw row labels.}
+\item{dims}{Two dimensions to plot.}
 
 \item{...}{Additional arguments passed to \code{\link[graphics:plot.default]{graphics::plot()}}.}
 }
@@ -27,10 +17,5 @@ plot_embedding(
 Invisibly returns \code{fit}.
 }
 \description{
-Draws a low-dimensional scatter plot from the mixed-latent view stored in a
-fitted \code{uccdf} object.
-}
-\examples{
-fit <- fit_uccdf(toy_mixed_data, id_column = "sample_id", n_resamples = 8, n_null = 39, seed = 1)
-plot_embedding(fit)
+Plot the Latent Embedding
 }

@@ -4,23 +4,16 @@
 \alias{infer_schema}
 \title{Infer a Simple Column Schema}
 \usage{
-infer_schema(data, id_column = NULL, ordinal_columns = NULL)
+infer_schema(data, id_column = NULL)
 }
 \arguments{
-\item{data}{A validated data frame or raw input table.}
+\item{data}{A data frame.}
 
 \item{id_column}{Optional identifier column name.}
-
-\item{ordinal_columns}{Optional character vector of columns to force as ordinal.}
 }
 \value{
-A data frame describing the inferred schema.
+A data frame describing inferred column roles and types.
 }
 \description{
-Infers coarse variable types and clustering roles for a structured data frame.
-}
-\examples{
-dat <- simulate_mixed_data(n = 20, k = 2, seed = 1)
-schema <- infer_schema(dat, id_column = "sample_id")
-schema[, c("column_name", "type", "role")]
+Infer a Simple Column Schema
 }

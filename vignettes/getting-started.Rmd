@@ -1,0 +1,40 @@
+---
+title: "Getting Started"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(uccdf)
+```
+
+# Overview
+
+`uccdf` provides a compact consensus clustering workflow for tabular data
+frames. The package keeps the API small and avoids bundled large datasets.
+
+# First run
+
+```{r}
+fit <- fit_uccdf(iris, candidate_k = 2:4, n_resamples = 20, seed = 42)
+fit
+select_k(fit)
+head(augment(fit))
+```
+
+```{r}
+plot_embedding(fit, main = "iris latent embedding")
+plot_consensus_heatmap(fit, main = "iris consensus heatmap")
+```
+
+# Output
+
+The main outputs are:
+
+- the selected `K`
+- the row-level assignments
+- the consensus-derived confidence values

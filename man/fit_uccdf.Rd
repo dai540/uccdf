@@ -2,24 +2,16 @@
 % Please edit documentation in R/core_api.R
 \name{fit_uccdf}
 \alias{fit_uccdf}
-\title{Fit Typed Consensus Clustering}
+\title{Fit Consensus Clustering}
 \usage{
 fit_uccdf(
   data,
   id_column = NULL,
-  candidate_k = 1:6,
-  n_resamples = 50L,
+  candidate_k = 2:4,
+  n_resamples = 20L,
   row_fraction = 0.8,
-  col_fraction = 0.7,
-  use_views = c("mixed_distance", "mixed_latent"),
-  learners = c("pam", "hierarchical", "kmeans"),
-  n_null = 99L,
-  null_family = "independence_marginal_null",
-  alpha = 0.05,
-  lambda_logk = 0.2,
-  gamma_small_cluster = 1,
-  min_cluster_size = 5L,
-  latent_dims = 5L,
+  col_fraction = 0.8,
+  latent_dims = 4L,
   seed = 123
 )
 }
@@ -28,35 +20,15 @@ fit_uccdf(
 
 \item{id_column}{Optional identifier column name.}
 
-\item{candidate_k}{Integer vector of candidate cluster counts. Values below 2
-are ignored during fitting; the method can still return \code{K = 1} if the
-global null is not rejected.}
+\item{candidate_k}{Candidate cluster counts.}
 
-\item{n_resamples}{Number of bootstrap-like resamples.}
+\item{n_resamples}{Number of resamples.}
 
-\item{row_fraction}{Fraction of rows sampled per resample.}
+\item{row_fraction}{Fraction of rows per resample.}
 
-\item{col_fraction}{Fraction of active columns sampled within each type.}
+\item{col_fraction}{Fraction of active columns per resample.}
 
-\item{use_views}{Character vector containing any of \code{"mixed_distance"} and
-\code{"mixed_latent"}.}
-
-\item{learners}{Character vector of learners. Supported values are \code{"pam"},
-\code{"hierarchical"}, and \code{"kmeans"}.}
-
-\item{n_null}{Number of null replicates.}
-
-\item{null_family}{Null family. The default is \code{"independence_marginal_null"}.}
-
-\item{alpha}{Significance level used for the global null test and per-K support.}
-
-\item{lambda_logk}{Complexity penalty on large K.}
-
-\item{gamma_small_cluster}{Penalty for clusters smaller than \code{min_cluster_size}.}
-
-\item{min_cluster_size}{Minimum acceptable cluster size in the final partition.}
-
-\item{latent_dims}{Number of latent dimensions for the mixed-latent view.}
+\item{latent_dims}{Number of latent dimensions.}
 
 \item{seed}{Random seed.}
 }
@@ -64,22 +36,5 @@ global null is not rejected.}
 An object of class \code{uccdf_fit}.
 }
 \description{
-Runs a compact typed consensus clustering workflow for a structured data
-frame. The workflow infers a schema, builds mixed-distance and mixed-latent
-views, aggregates partitions across resamples and learners, calibrates
-stability against simple null tables, selects \code{K}, and returns row-level
-labels with confidence and ambiguity.
-}
-\examples{
-dat <- simulate_mixed_data(n = 50, k = 3, seed = 1)
-fit <- fit_uccdf(
-  dat,
-  id_column = "sample_id",
-  n_resamples = 12,
-  n_null = 39,
-  candidate_k = 1:4,
-  seed = 1
-)
-fit
-head(augment(fit))
+Fit Consensus Clustering
 }

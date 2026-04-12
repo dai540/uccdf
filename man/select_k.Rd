@@ -2,21 +2,16 @@
 % Please edit documentation in R/core_api.R
 \name{select_k}
 \alias{select_k}
-\title{Extract the K Selection Table}
+\title{Return the K Selection Table}
 \usage{
 select_k(fit)
 }
 \arguments{
-\item{fit}{A fitted object from \code{\link[=fit_uccdf]{fit_uccdf()}}.}
+\item{fit}{A \code{uccdf_fit} object.}
 }
 \value{
-A data frame with per-K stability and selection statistics.
+A data frame.
 }
 \description{
-Returns the null-calibrated K summary from a fitted \code{uccdf} object.
-}
-\examples{
-dat <- simulate_mixed_data(n = 40, k = 2, seed = 1)
-fit <- fit_uccdf(dat, id_column = "sample_id", n_resamples = 10, n_null = 39, seed = 1)
-select_k(fit)
+Return the K Selection Table
 }

@@ -1,12 +1,5 @@
 url: https://dai540.github.io/uccdf/
 
-repo:
-  url:
-    home: https://github.com/dai540/uccdf
-    source: https://github.com/dai540/uccdf/blob/main
-    issue: https://github.com/dai540/uccdf/issues/
-    user: https://github.com/
-
 template:
   bootstrap: 5
   bootswatch: flatly
@@ -14,114 +7,51 @@ template:
 development:
   mode: release
 
-llm-docs: false
-
 home:
   title: uccdf
-  description: Typed consensus clustering for structured mixed-type data frames.
+  description: Minimal consensus clustering for tabular data frames.
   sidebar:
     structure: []
 
 navbar:
   structure:
-    left: [intro, reference, articles]
+    left: [getting_started, guides, tutorials, reference]
     right: [github, search]
   components:
-    intro:
-      text: Get Started
-      href: index.html
+    getting_started:
+      text: Getting Started
+      href: articles/getting-started.html
+    guides:
+      text: Guides
+      menu:
+        - text: Method Overview
+          href: articles/guide-method-overview.html
+    tutorials:
+      text: Tutorials
+      menu:
+        - text: iris
+          href: articles/tutorial-iris.html
+        - text: mtcars
+          href: articles/tutorial-mtcars.html
     reference:
       text: Reference
       href: reference/index.html
-    articles:
-      text: Articles
-      menu:
-        - text: Core articles
-        - text: Method and Design
-          href: articles/core-method-and-design.html
-        - text: Existing Methods Comparison
-          href: articles/comparison-existing-methods.html
-        - text: Case studies
-        - text: airquality
-          href: articles/case-airquality.html
-        - text: CO2
-          href: articles/case-co2.html
-        - text: Indometh
-          href: articles/case-indometh.html
-        - text: InsectSprays
-          href: articles/case-insectsprays.html
-        - text: survey
-          href: articles/case-survey.html
-        - text: Cars93
-          href: articles/case-cars93.html
-        - text: iris
-          href: articles/case-iris.html
-        - text: mtcars
-          href: articles/case-mtcars.html
-        - text: ChickWeight
-          href: articles/case-chickweight.html
-        - text: attitude
-          href: articles/case-attitude.html
-        - text: USJudgeRatings
-          href: articles/case-usjudgeratings.html
-        - text: golub
-          href: articles/case-golub.html
-        - text: ALL
-          href: articles/case-all.html
-        - text: bladderEset
-          href: articles/case-bladdereset.html
-        - text: PimaIndiansDiabetes2
-          href: articles/case-pimaindiansdiabetes2.html
     github:
       icon: fa-github
       href: https://github.com/dai540/uccdf
       aria-label: GitHub repository
 
 articles:
-  - title: Core tutorials
-    navbar: Core
+  - title: Getting Started
+    navbar: Getting Started
     contents:
-      - core-method-and-design
-      - comparison-existing-methods
-  - title: Case studies
-    navbar: Case Studies
+      - getting-started
+  - title: Guides
+    navbar: Guides
     contents:
-      - case-airquality
-      - case-co2
-      - case-indometh
-      - case-insectsprays
-      - case-survey
-      - case-cars93
-      - case-iris
-      - case-mtcars
-      - case-chickweight
-      - case-attitude
-      - case-usjudgeratings
-      - case-golub
-      - case-all
-      - case-bladdereset
-      - case-pimaindiansdiabetes2
-
-reference:
-  - title: Core workflow
+      - guide-method-overview
+  - title: Tutorials
+    navbar: Tutorials
     contents:
-      - validate_input
-      - infer_schema
-      - build_views
-      - fit_uccdf
-      - select_k
-      - augment
-      - report
-  - title: Visualization and examples
-    contents:
-      - plot.uccdf_fit
-      - plot_embedding
-      - plot_consensus_heatmap
-      - print.uccdf_fit
-      - all_gene_panel
-      - simulate_mixed_data
-      - airway_gene_panel
-      - bladder_gene_panel
-      - golub_gene_panel
-      - pima_biomarker_panel
-      - toy_mixed_data
+      - tutorial-iris
+      - tutorial-mtcars

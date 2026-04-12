@@ -1,84 +1,33 @@
-# uccdf <img src="man/figures/logo.svg" align="right" height="84" alt="uccdf logo" />
+# uccdf
 
-[![pkgdown](https://img.shields.io/badge/docs-pkgdown-315c86)](https://dai540.github.io/uccdf/)
-[![R-CMD-check](https://github.com/dai540/uccdf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dai540/uccdf/actions/workflows/R-CMD-check.yaml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+`uccdf` is a compact R package for consensus clustering on tabular data frames.
 
-`uccdf` provides typed consensus clustering for structured mixed-type data
-frames.
+The package is intentionally narrow. It is designed for situations where the
+input is already a structured table and the goal is to obtain a stable cluster
+assignment without introducing a large dependency surface, large bundled data,
+or a complex project layout.
 
-The package is designed for the following workflow:
+This repository has been rebuilt around four practical goals:
 
-- validate a tabular input object
-- infer a simple column schema
-- build more than one clustering representation of the same table
-- aggregate clustering runs across resamples and learners
-- run a global null test for non-trivial cluster structure
-- select the best supported `K`
-- return row-level labels, confidence, ambiguity, and exploratory assignments
+1. keep the package source small
+2. keep the code readable
+3. keep the generated site simple
+4. keep the example footprint limited to built-in datasets
 
-Documentation website:
+## What the package does
 
-- <https://dai540.github.io/uccdf/>
+The workflow is:
 
-Current scope:
+1. validate a `data.frame`
+2. infer a coarse schema
+3. build two clustering views
+4. fit repeated clustering runs
+5. aggregate them into consensus matrices
+6. choose a supported `K`
+7. return row-level assignments and confidence summaries
 
-- `continuous`
-- `binary`
-- `nominal`
-- `ordinal`
-
-## Installation
-
-Install from GitHub with `pak`:
-
-```r
-install.packages("pak")
-pak::pak("dai540/uccdf")
-```
-
-Or with `remotes`:
-
-```r
-install.packages("remotes")
-remotes::install_github("dai540/uccdf")
-```
-
-Or from a source tarball:
-
-```r
-install.packages("path/to/uccdf_0.1.0.tar.gz", repos = NULL, type = "source")
-```
-
-## Minimal example
-
-```r
-library(uccdf)
-
-fit <- fit_uccdf(
-  toy_mixed_data,
-  id_column = "sample_id",
-  candidate_k = 1:4,
-  n_resamples = 20,
-  n_null = 99,
-  seed = 42
-)
-
-fit$selection
-select_k(fit)
-head(augment(fit))
-plot(fit, type = "selection")
-plot_embedding(fit, color_by = "selected")
-plot_consensus_heatmap(fit)
-```
-
-The practical readout is:
-
-- `fit$selection` for the global decision
-- `select_k(fit)` for the per-`K` support table
-- `augment(fit)` for row-level assignments
-- `plot_embedding(fit)` for latent separation
-- `plot_consensus_heatmap(fit)` for hierarchical agreement structure
+The implementation is minimal by design. It provides a single compact workflow
+for small to medium tabular analyses, not a broad clustering framework.
 
 ## Main functions
 
@@ -93,88 +42,117 @@ The practical readout is:
 - `plot_consensus_heatmap()`
 - `simulate_mixed_data()`
 
-## Selection design
+## Installation
 
-`uccdf` separates two decisions:
+Install from GitHub:
 
-1. whether the table shows evidence of non-trivial cluster structure
-2. which `K` is the best supported solution conditional on that detection
+```r
+install.packages("pak")
+pak::pak("dai540/uccdf")
+```
 
-When the global null is not rejected:
+Or:
 
-- `selected_k` is `1`
-- `cluster` remains `1`
-- `confidence` and `ambiguity` are `NA`
-- `exploratory_cluster` stores the strongest unsupported split
+```r
+install.packages("remotes")
+remotes::install_github("dai540/uccdf")
+```
 
-This avoids overstating unsupported multi-cluster solutions while still exposing
-structure that may be worth inspecting.
+## Minimal example
 
-## Returned object
+```r
+library(uccdf)
 
-The main return value is a `uccdf_fit` object containing:
+fit <- fit_uccdf(
+  iris,
+  candidate_k = 2:4,
+  n_resamples = 20,
+  seed = 42
+)
 
-- inferred schema
-- mixed-distance and mixed-latent views
-- run-level metadata
-- consensus matrices by candidate `K`
-- null-score summaries
-- selected and exploratory assignments
+fit
+select_k(fit)
+head(augment(fit))
+plot_embedding(fit)
+plot_consensus_heatmap(fit)
+```
 
-`confidence` is a consensus-derived assignment stability score. It is not a
-Bayesian posterior probability.
+## Design
 
-## Built-in example datasets
+The package deliberately limits scope.
 
-Core example data:
+- Input is a `data.frame` or matrix-like object.
+- Column types are inferred coarsely as continuous, binary, nominal, ordinal,
+  or excluded.
+- Two views are constructed:
+  - a mixed-distance view
+  - a low-dimensional latent view
+- Clustering is aggregated across a small learner set.
 
-- `toy_mixed_data`
+This package does not attempt to support text, images, graphs, large external
+omics downloads, or highly specialized clustering backends.
 
-Bundled real-data panels:
+## Output
 
-- `all_gene_panel`, derived from the Bioconductor `ALL` leukemia dataset
-- `airway_gene_panel`, derived from the Bioconductor `airway` RNA-seq dataset
-- `bladder_gene_panel`, derived from the Bioconductor `bladderbatch` dataset
-- `golub_gene_panel`, derived from `multtest::golub`
-- `pima_biomarker_panel`, derived from `mlbench::PimaIndiansDiabetes2`
+The fitted object stores:
 
-## Website structure
+- the validated input
+- the inferred schema
+- the latent and distance views
+- consensus matrices by `K`
+- a selection table
+- row-level cluster assignments
 
-The pkgdown site is organized into:
+`confidence` is an empirical assignment stability score derived from the
+consensus matrix. It is not a posterior probability.
 
-- `Get Started`
-- `Reference`
-- `Articles`
+## Documentation website
 
-The article collection includes:
+The pkgdown site is organized into four sections:
 
-- design and method notes
-- comparison with existing consensus clustering toolkits
-- real-data analyses covering clinical, biomarker, and omics examples
+- Getting Started
+- Guides
+- Tutorials
+- Reference
 
-Real-data articles currently include:
+The tutorials use only datasets that are available in base R or recommended
+packages so that the repository remains lightweight.
 
-- `airquality`
-- `CO2`
-- `Indometh`
-- `InsectSprays`
-- `survey`
-- `Cars93`
-- `iris`
-- `mtcars`
-- `ChickWeight`
-- `attitude`
-- `USJudgeRatings`
-- `golub`
-- `ALL`
-- `bladderEset`
-- `PimaIndiansDiabetes2`
+A minimal `sphinx/` source tree is also included for environments that prefer a
+plain static documentation build with the same four sections.
 
-## Current limits
+## Repository structure
 
-Version `0.1.0` is intentionally narrow.
+The repository is intentionally minimal:
 
-- no first-class support for text, image, or graph data
-- no dedicated `datetime` feature handling
-- no advanced copula-style null generators
-- no default `k-prototypes` or `KAMILA` workflow
+- `R/` contains the package source
+- `man/` contains generated Rd files
+- `tests/` contains testthat tests
+- `vignettes/` contains the pkgdown articles
+- `docs/` contains the built pkgdown site
+- `.github/workflows/` contains CI and site publishing workflows
+
+Removed on purpose:
+
+- bundled large datasets
+- temporary generation directories
+- local build artifacts
+- unused helper scripts
+
+## Development notes
+
+Typical local verification:
+
+```r
+roxygen2::roxygenise(".")
+pkgdown::build_site(".")
+```
+
+Or from the shell:
+
+```sh
+R CMD build .
+R CMD check --no-manual uccdf_0.1.0.tar.gz
+```
+
+Generated `.tar.gz` files and `*.Rcheck/` directories should not be committed.
